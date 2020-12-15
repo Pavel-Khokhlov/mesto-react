@@ -1,8 +1,4 @@
-/* {
-  border: 1px red solid;
-}*/
-
-.root {
+#root {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-style: normal;
   color: #fff;
