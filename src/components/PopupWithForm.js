@@ -10,6 +10,7 @@ const PopupWithForm = (props) => {
         className={`popup__container popup_S{props.name}`}
         method="post"
         noValidate
+        onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
