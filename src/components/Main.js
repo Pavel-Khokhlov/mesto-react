@@ -1,12 +1,27 @@
+import React, { useState, useEffect } from "react";
+import api from "../utils/api";
+
 import "../pages/index.css";
 
 const Main = (props) => {
+  const [userName, setUserName] = useState("");
+  const [userDescription, setUserDescription] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
+
+  useEffect(() => {
+    api.getUserInfo().then((res) => {
+      setUserName(res.name);
+      setUserDescription(res.about);
+      setUserAvatar(res.avatar);
+    });
+  });
+
   return (
     <main className="main">
       {/* PROFILE */}
       <section className="profile">
         <div className="profile__avatar-area">
-          <img src="#src" alt="#alt" className="profile__avatar" />
+          <img src={userAvatar} alt={userName} className="profile__avatar" />
           <button
             type="button"
             className="profile__avatar-btn"
@@ -16,9 +31,7 @@ const Main = (props) => {
         </div>
         <div className="profile__info">
           <div className="profile__block-name">
-            <h1 className="profile__name" id>
-              Pavel Khokhlov
-            </h1>
+            <h1 className="profile__name">{userName}</h1>
             <button
               type="button"
               className="button profile__edit-btn"
@@ -26,7 +39,7 @@ const Main = (props) => {
               onClick={props.onEditProfile}
             />
           </div>
-          <p className="profile__job">Web developer</p>
+          <p className="profile__job">{userDescription}</p>
         </div>
         <button
           type="button"
