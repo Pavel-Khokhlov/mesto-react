@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Card from "./Card";
 import api from "../utils/api";
 
 import "../pages/index.css";
@@ -7,7 +8,11 @@ const Main = (props) => {
   const [userName, setUserName] = useState("");
   const [userDescription, setUserDescription] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
+  const [cards, setCards] = useState([]);
 
+  {
+    /* API GET USER INFO */
+  }
   useEffect(() => {
     api.getUserInfo().then((res) => {
       setUserName(res.name);
@@ -15,6 +20,29 @@ const Main = (props) => {
       setUserAvatar(res.avatar);
     });
   });
+
+  {
+    /* API GET CARDS */
+  }
+  useEffect(() => {
+    api.getPlaces().then((res) => {
+      console.log(res);
+      const cards = res.map((item) => {
+        return {
+          link: item.link,
+          title: item.name,
+          cardId: item._id,
+          ownerId: item.owner._id,
+          ownerAva: item.owner.avatar,
+          ownerName: item.owner.name,
+          likes: item.likes,
+          countLikes: item.likes.length,
+        };
+      });
+      setCards(cards);
+      console.log(cards);
+    });
+  }, []);
 
   return (
     <main className="main">
@@ -49,7 +77,17 @@ const Main = (props) => {
         />
       </section>
       {/* PLACES */}
-      <ul className="places" />
+      <ul className="places">
+        {cards.map((card) => {
+          return (
+            <Card
+              link={card.link}
+              title={card.title}
+              countLikes={card.countLikes}
+            />
+          );
+        })}
+      </ul>
     </main>
   );
 };
