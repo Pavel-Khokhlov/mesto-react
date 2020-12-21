@@ -1,4 +1,4 @@
-import React, { useState, useEfect } from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -11,6 +11,7 @@ const App = () => {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [isDelConfirmPopupOpen, setDelConfirmPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(false);
 
   const handleEditProfileClick = () => {
     setEditProfilePopupOpen(true);
@@ -24,6 +25,11 @@ const App = () => {
     setAddPlacePopupOpen(true);
   };
 
+  const handleCardClick = (cardLink, cardTitle) => {
+    console.log(cardLink, cardTitle)
+    setSelectedCard({ cardLink, cardTitle });
+  };
+
   return (
     <div>
       <Header />
@@ -31,6 +37,7 @@ const App = () => {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
       <PopupWithForm
@@ -129,7 +136,7 @@ const App = () => {
         title={`Вы уверенны`}
         button={`Да`}
       />
-      <ImagePopup />
+      <ImagePopup card={selectedCard} onClose={() => setSelectedCard(false)} />
     </div>
   );
 };

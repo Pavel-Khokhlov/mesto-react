@@ -1,14 +1,17 @@
 import React from "react";
 
 const ImagePopup = (props) => {
-
   return (
     <section
       className={
-        props.isOpen ? "popup popup-zoom popup_opened" : "popup popup-zoom"
+        props.card ? "popup popup-zoom popup_opened" : "popup popup-zoom"
       }
+      onClick={props.onClose}
     >
-      <figure className="popup-zoom__container">
+      <figure
+        className="popup-zoom__container"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           type="button"
           className="button popup__close-btn"
@@ -16,12 +19,13 @@ const ImagePopup = (props) => {
           onClick={props.onClose}
         />
         <img
-          src={props.link}
-          alt={props.title}
+          src={props.card.cardLink}
+          alt={props.card.cardTitle}
           className="popup-zoom__image"
-          onClick={(e) => e.stopPropagation()}
         />
-        <figcaption className="popup-zoom__caption">{props.title}</figcaption>
+        <figcaption className="popup-zoom__caption">
+          {props.card.cardTitle}
+        </figcaption>
       </figure>
     </section>
   );

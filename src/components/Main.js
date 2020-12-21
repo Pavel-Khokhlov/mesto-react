@@ -10,23 +10,16 @@ const Main = (props) => {
   const [userAvatar, setUserAvatar] = useState("");
   const [cards, setCards] = useState([]);
 
-  {
-    /* API GET USER INFO */
-  }
   useEffect(() => {
     api.getUserInfo().then((res) => {
       setUserName(res.name);
       setUserDescription(res.about);
       setUserAvatar(res.avatar);
     });
-  });
+  }, []);
 
-  {
-    /* API GET CARDS */
-  }
   useEffect(() => {
     api.getPlaces().then((res) => {
-      console.log(res);
       const cards = res.map((item) => {
         return {
           link: item.link,
@@ -78,12 +71,13 @@ const Main = (props) => {
       </section>
       {/* PLACES */}
       <ul className="places">
-        {cards.map((card) => {
+        {cards.map(({ cardId, link, title }) => {
           return (
             <Card
-              link={card.link}
-              title={card.title}
-              countLikes={card.countLikes}
+              key={cardId}
+              cardLink={link}
+              cardTitle={title}
+              onCardClick={props.onCardClick}
             />
           );
         })}

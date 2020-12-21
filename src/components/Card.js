@@ -2,6 +2,11 @@ import React from "react";
 import "../pages/index.css";
 
 const Card = (props) => {
+  const handleClick = () => {
+    console.log(props.cardLink, props.cardTitle);
+    props.onCardClick(props.cardLink, props.cardTitle);
+  };
+
   return (
     <li className="place">
       <button
@@ -10,10 +15,15 @@ const Card = (props) => {
         aria-label="удалить место"
       />
       <button type="button" className="button place__img-btn">
-        <img src={props.link} alt={props.title} className="place__image" />
+        <img
+          src={props.cardLink}
+          alt={props.cardTitle}
+          className="place__image"
+          onClick={handleClick}
+        />
       </button>
       <div className="place__info">
-        <h2 className="place__title">{props.title}</h2>
+        <h2 className="place__title">{props.cardTitle}</h2>
         <div className="place__like-area">
           <button
             type="button"
