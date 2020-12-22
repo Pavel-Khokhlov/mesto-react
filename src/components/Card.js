@@ -30,7 +30,7 @@ const Card = (props) => {
             className="button place__like-btn"
             aria-label="поставить лайк"
           />
-          <p className="paragraph place__like-count">{props.countLikes}</p>
+          <p className="paragraph place__like-count">{props.cardCountLikes}</p>
         </div>
       </div>
     </li>

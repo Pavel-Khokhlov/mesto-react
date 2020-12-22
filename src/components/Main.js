@@ -71,12 +71,13 @@ const Main = (props) => {
       </section>
       {/* PLACES */}
       <ul className="places">
-        {cards.map(({ cardId, link, title }) => {
+        {cards.map(({ cardId, link, title, countLikes }) => {
           return (
             <Card
               key={cardId}
               cardLink={link}
               cardTitle={title}
+              cardCountLikes={countLikes}
               onCardClick={props.onCardClick}
             />
           );
