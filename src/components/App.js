@@ -29,6 +29,14 @@ const App = () => {
     setSelectedCard({ cardLink, cardTitle });
   };
 
+  const closeAllPopup = () => {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setSelectedCard(false);
+    setIsDelConfirmPopupOpen(false);
+  };
+
   return (
     <div>
       <Header />
@@ -41,7 +49,7 @@ const App = () => {
       <Footer />
       <PopupWithForm
         isOpen={isEditAvatarPopupOpen}
-        onClose={() => setIsEditAvatarPopupOpen(false)}
+        onClose={closeAllPopup}
         name={`edit-avatar`}
         title={`Обновить аватар`}
         button={`Сохранить`}
@@ -59,7 +67,7 @@ const App = () => {
       </PopupWithForm>
       <PopupWithForm
         isOpen={isEditProfilePopupOpen}
-        onClose={() => setIsEditProfilePopupOpen(false)}
+        onClose={closeAllPopup}
         name={`edit-profile`}
         title={`Редактировать профиль`}
         button={`Сохранить`}
@@ -89,7 +97,7 @@ const App = () => {
       </PopupWithForm>
       <PopupWithForm
         isOpen={isAddPlacePopupOpen}
-        onClose={() => setIsAddPlacePopupOpen(false)}
+        onClose={closeAllPopup}
         name={`add-place`}
         title={`Новое место`}
         button={`Добавить`}
@@ -119,12 +127,12 @@ const App = () => {
       </PopupWithForm>
       <PopupWithForm
         isOpen={isDelConfirmPopupOpen}
-        onClose={() => setIsDelConfirmPopupOpen(false)}
+        onClose={closeAllPopup}
         name={`del-place`}
         title={`Вы уверенны`}
         button={`Да`}
       />
-      <ImagePopup card={selectedCard} onClose={() => setSelectedCard(false)} />
+      <ImagePopup card={selectedCard} onClose={closeAllPopup} />
     </div>
   );
 };

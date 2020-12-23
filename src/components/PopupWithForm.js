@@ -7,7 +7,7 @@ const PopupWithForm = (props) => {
       onClick={props.onClose}
     >
       <form
-        className={`popup__container popup_S{props.name}`}
+        className={`popup__container popup_${props.name}`}
         method="post"
         noValidate
         onClick={(e) => e.stopPropagation()}
