@@ -24,9 +24,9 @@ const App = () => {
     setIsAddPlacePopupOpen(true);
   };
 
-  const handleCardClick = (cardLink, cardTitle) => {
-    console.log(cardLink, cardTitle);
-    setSelectedCard({ cardLink, cardTitle });
+  const handleCardClick = (card) => {
+    console.log(card);
+    setSelectedCard({ link: card.link, title: card.name });
   };
 
   const closeAllPopup = () => {

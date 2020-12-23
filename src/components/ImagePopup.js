@@ -19,12 +19,12 @@ const ImagePopup = (props) => {
           onClick={props.onClose}
         />
         <img
-          src={props.card.cardLink}
-          alt={props.card.cardTitle}
+          src={props.card.link}
+          alt={props.card.title}
           className="popup-zoom__image"
         />
         <figcaption className="popup-zoom__caption">
-          {props.card.cardTitle}
+          {props.card.title}
         </figcaption>
       </figure>
     </section>

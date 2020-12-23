@@ -18,16 +18,9 @@ const Main = (props) => {
 
   useEffect(() => {
     api.getPlaces().then((res) => {
-      const cards = res.map((item) => {
+      const cards = res.map((card) => {
         return {
-          link: item.link,
-          title: item.name,
-          cardId: item._id,
-          ownerId: item.owner._id,
-          ownerAva: item.owner.avatar,
-          ownerName: item.owner.name,
-          likes: item.likes,
-          countLikes: item.likes.length,
+          card,
         };
       });
       setCards(cards);
@@ -69,13 +62,11 @@ const Main = (props) => {
       </section>
       {/* PLACES */}
       <ul className="places">
-        {cards.map(({ cardId, link, title, countLikes }) => {
+        {cards.map(({card}) => {
           return (
             <Card
-              key={cardId}
-              cardLink={link}
-              cardTitle={title}
-              cardCountLikes={countLikes}
+              key={card._id}
+              card={card}
               onCardClick={props.onCardClick}
             />
           );

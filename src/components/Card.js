@@ -2,8 +2,8 @@ import React from "react";
 
 const Card = (props) => {
   const handleClick = () => {
-    console.log(props.cardLink, props.cardTitle);
-    props.onCardClick(props.cardLink, props.cardTitle);
+    console.log(props.card);
+    props.onCardClick(props.card);
   };
 
   return (
@@ -15,21 +15,21 @@ const Card = (props) => {
       />
       <button type="button" className="button place__img-btn">
         <img
-          src={props.cardLink}
-          alt={props.cardTitle}
+          src={props.card.link}
+          alt={props.card.name}
           className="place__image"
           onClick={handleClick}
         />
       </button>
       <div className="place__info">
-        <h2 className="place__title">{props.cardTitle}</h2>
+        <h2 className="place__title">{props.card.name}</h2>
         <div className="place__like-area">
           <button
             type="button"
             className="button place__like-btn"
             aria-label="поставить лайк"
           />
-          <p className="paragraph place__like-count">{props.cardCountLikes}</p>
+          <p className="paragraph place__like-count">{props.card.likes.length}</p>
         </div>
       </div>
     </li>
