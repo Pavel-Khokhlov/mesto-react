@@ -72,7 +72,6 @@ const App = () => {
           autoComplete="off"
           minLength={2}
           maxLength={40}
-          defaultValue
           required
         />
         <span id="fullName-error" className="popup__input-error" />
@@ -84,7 +83,6 @@ const App = () => {
           autoComplete="off"
           minLength={2}
           maxLength={200}
-          defaultValue
           required
         />
         <span id="jobPosition-error" className="popup__input-error" />
