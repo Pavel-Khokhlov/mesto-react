@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import api from "../utils/api";
 
-import "../pages/index.css";
-
 const Main = (props) => {
   const [userName, setUserName] = useState("");
   const [userDescription, setUserDescription] = useState("");
