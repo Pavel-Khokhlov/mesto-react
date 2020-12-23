@@ -6,22 +6,22 @@ import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
 
 const App = () => {
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
-  const [isDelConfirmPopupOpen, setDelConfirmPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isDelConfirmPopupOpen, setIsDelConfirmPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(false);
 
   const handleEditProfileClick = () => {
-    setEditProfilePopupOpen(true);
+    setIsEditProfilePopupOpen(true);
   };
 
   const handleEditAvatarClick = () => {
-    setEditAvatarPopupOpen(true);
+    setIsEditAvatarPopupOpen(true);
   };
 
   const handleAddPlaceClick = () => {
-    setAddPlacePopupOpen(true);
+    setIsAddPlacePopupOpen(true);
   };
 
   const handleCardClick = (cardLink, cardTitle) => {
@@ -41,7 +41,7 @@ const App = () => {
       <Footer />
       <PopupWithForm
         isOpen={isEditAvatarPopupOpen}
-        onClose={() => setEditAvatarPopupOpen(false)}
+        onClose={() => setIsEditAvatarPopupOpen(false)}
         name={`edit-avatar`}
         title={`Обновить аватар`}
         button={`Сохранить`}
@@ -62,7 +62,7 @@ const App = () => {
       />
       <PopupWithForm
         isOpen={isEditProfilePopupOpen}
-        onClose={() => setEditProfilePopupOpen(false)}
+        onClose={() => setIsEditProfilePopupOpen(false)}
         name={`edit-profile`}
         title={`Редактировать профиль`}
         button={`Сохранить`}
@@ -97,7 +97,7 @@ const App = () => {
       />
       <PopupWithForm
         isOpen={isAddPlacePopupOpen}
-        onClose={() => setAddPlacePopupOpen(false)}
+        onClose={() => setIsAddPlacePopupOpen(false)}
         name={`add-place`}
         title={`Новое место`}
         button={`Добавить`}
@@ -130,7 +130,7 @@ const App = () => {
       />
       <PopupWithForm
         isOpen={isDelConfirmPopupOpen}
-        onClose={() => setDelConfirmPopupOpen(false)}
+        onClose={() => setIsDelConfirmPopupOpen(false)}
         name={`del-place`}
         title={`Вы уверенны`}
         button={`Да`}
