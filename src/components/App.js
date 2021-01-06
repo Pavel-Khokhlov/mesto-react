@@ -16,9 +16,8 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
-    api.getUserInfo().then((res) => {
-      setCurrentUser(res);
-      console.log(currentUser);
+    api.getUserInfo().then((user) => {
+      setCurrentUser(user);
     });
   }, {});
 

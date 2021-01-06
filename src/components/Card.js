@@ -2,9 +2,12 @@ import React from "react";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 
 const Card = (props) => {
-  const handleClick = () => {
-    console.log(props.card);
+  const handleCardClick = () => {
     props.onCardClick(props.card);
+  };
+
+  const handleLikeClick = () => {
+    props.onCardLike(props.card);
   };
 
   const currentUser = React.useContext(CurrentUserContext);
@@ -32,7 +35,7 @@ const Card = (props) => {
           src={props.card.link}
           alt={props.card.name}
           className="place__image"
-          onClick={handleClick}
+          onClick={handleCardClick}
         />
       </button>
       <div className="place__info">
@@ -42,6 +45,7 @@ const Card = (props) => {
             type="button"
             className={cardLikeButtonClassName}
             aria-label="поставить лайк"
+            onClick={handleLikeClick}
           />
           <p className="paragraph place__like-count">
             {props.card.likes.length}
