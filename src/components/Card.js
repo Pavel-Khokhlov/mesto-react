@@ -10,6 +10,10 @@ const Card = (props) => {
     props.onCardLike(props.card);
   };
 
+  const handleDeleteClick = () => {
+    props.onCardDelete(props.card);
+  };
+
   const currentUser = React.useContext(CurrentUserContext);
   // SET DELETE BTN TO MY CARD
   const isOwn = props.card.owner._id === currentUser._id;
@@ -29,6 +33,7 @@ const Card = (props) => {
         type="button"
         className={cardDeleteButtonClassName}
         aria-label="удалить место"
+        onClick={handleDeleteClick}
       />
       <button type="button" className="button place__img-btn">
         <img
