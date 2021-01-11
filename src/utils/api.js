@@ -1,10 +1,4 @@
-import {
-  nameInput,
-  jobInput,
-  avatarLinkInput,
-  inputNamePlace,
-  inputLinkPlace,
-} from "./constants.js";
+import { inputNamePlace, inputLinkPlace } from "./constants.js";
 
 class Api {
   constructor(config) {
@@ -35,23 +29,24 @@ class Api {
     }).then(this._checkPromise);
   }
 
-  patchUserInfo() {
+  patchUserInfo(name, about) {
     return fetch(`${this.url}/users/me`, {
       method: "PATCH",
       headers: this.headers,
       body: JSON.stringify({
-        name: nameInput.value,
-        about: jobInput.value,
+        name: name,
+        about: about,
       }),
     }).then(this._checkPromise);
   }
 
-  patchUserAvatar() {
+  patchUserAvatar(avatar) {
+    console.log(avatar);
     return fetch(`${this.url}/users/me/avatar`, {
       method: "PATCH",
       headers: this.headers,
       body: JSON.stringify({
-        avatar: avatarLinkInput.value,
+        avatar: avatar,
       }),
     }).then(this._checkPromise);
   }

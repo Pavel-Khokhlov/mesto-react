@@ -15,6 +15,7 @@ const Card = (props) => {
   };
 
   const currentUser = React.useContext(CurrentUserContext);
+  
   // SET DELETE BTN TO MY CARD
   const isOwn = props.card.owner._id === currentUser._id;
   const cardDeleteButtonClassName = `button place__del-btn ${

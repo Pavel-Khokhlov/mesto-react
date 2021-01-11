@@ -1,16 +1,16 @@
 import React from "react";
 
 const PopupWithForm = (props) => {
+  const popupOpenClassName = `popup ${props.isOpen ? "popup_opened" : ""}`;
+
   return (
-    <section
-      className={props.isOpen ? "popup popup_opened" : "popup"}
-      onClick={props.onClose}
-    >
+    <section className={popupOpenClassName} onClick={props.onClose}>
       <form
         className={`popup__container popup_${props.name}`}
         method="post"
         noValidate
         onClick={(e) => e.stopPropagation()}
+        onSubmit={props.onSubmit}
       >
         <button
           type="button"
