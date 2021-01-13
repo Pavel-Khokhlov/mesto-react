@@ -6,6 +6,9 @@ const EditProfilePopup = (props) => {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [uxSaveBtn, setUxSaveBtn] = useState("Сохранить");
+  //const [uxAddBtn, setUxAddBtn] = useState("Добавить");
+
 
   useEffect(() => {
     setName(currentUser.name);
@@ -21,29 +24,31 @@ const EditProfilePopup = (props) => {
   };
 
   const handleSubmit = (e) => {
+    setUxSaveBtn("Сохранение...");
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
-
     // Передаём значения управляемых компонентов во внешний обработчик
-    props.onUpdateUser({
-      name: name,
-      about: description,
-    });
+    props.onUpdateUser(name, description);
+    setUxSaveBtn("Сохранить");
+  };
+
+  const handleClose = () => {
+    props.onClose();
+    setName(currentUser.name);
+    setDescription(currentUser.about);
   };
 
   return (
     <PopupWithForm
       isOpen={props.isOpen}
-      onClose={props.onClose}
-      name={`edit-profile`}
+      onClose={handleClose}
       title={`Редактировать профиль`}
-      button={props.button}
+      button={uxSaveBtn}
       onSubmit={handleSubmit}
     >
       <input
         type="text"
-        id="fullName"
-        className="popup__input popup__input_name-profile"
+        className="popup__input"
         placeholder="Имя Фамилия"
         autoComplete="off"
         minLength={2}
@@ -55,8 +60,7 @@ const EditProfilePopup = (props) => {
       <span id="fullName-error" className="popup__input-error" />
       <input
         type="text"
-        id="jobPosition"
-        className="popup__input popup__input_job-profile"
+        className="popup__input"
         placeholder="Профессия или должность"
         autoComplete="off"
         minLength={2}

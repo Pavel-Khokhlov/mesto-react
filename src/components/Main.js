@@ -43,11 +43,11 @@ const Main = (props) => {
       </section>
       {/* PLACES */}
       <ul className="places">
-        {props.cards.map(({ card }) => {
+        {props.cards.map((i) => {
           return (
             <Card
-              key={card._id}
-              card={card}
+              key={i._id}
+              card={i}
               onCardClick={props.onCardClick}
               onCardLike={props.onCardLike}
               onCardDelete={props.onCardDelete}

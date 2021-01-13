@@ -1,5 +1,3 @@
-import { inputNamePlace, inputLinkPlace } from "./constants.js";
-
 class Api {
   constructor(config) {
     this.url = config.url;
@@ -12,13 +10,13 @@ class Api {
     }).then(this._checkPromise);
   }
 
-  newPlace() {
+  newPlace(name, link) {
     return fetch(`${this.url}/cards`, {
       method: "POST",
       headers: this.headers,
       body: JSON.stringify({
-        name: inputNamePlace.value,
-        link: inputLinkPlace.value,
+        name: name,
+        link: link,
       }),
     }).then(this._checkPromise);
   }
@@ -29,19 +27,18 @@ class Api {
     }).then(this._checkPromise);
   }
 
-  patchUserInfo(name, about) {
+  patchUserInfo({name, about}) {
     return fetch(`${this.url}/users/me`, {
       method: "PATCH",
       headers: this.headers,
       body: JSON.stringify({
-        name: name,
-        about: about,
+        name,
+        about,
       }),
     }).then(this._checkPromise);
   }
 
   patchUserAvatar(avatar) {
-    console.log(avatar);
     return fetch(`${this.url}/users/me/avatar`, {
       method: "PATCH",
       headers: this.headers,
@@ -52,11 +49,10 @@ class Api {
   }
 
   changeLikeCardStatus(cardId, isLiked) {
-    console.log(cardId, isLiked);
-    if (!isLiked) {
-      return this.addLike(cardId);
+    if (isLiked) {
+      return this.removeLike(cardId);
     }
-    return this.removeLike(cardId);
+    return this.addLike(cardId);
   }
 
   addLike(cardId) {
