@@ -6,7 +6,7 @@ const PopupWithForm = (props) => {
   return (
     <section className={popupOpenClassName} onClick={props.onClose}>
       <form
-        className={`popup__container popup_${props.name}`}
+        className="popup__container"
         method="post"
         noValidate
         onClick={(e) => e.stopPropagation()}
