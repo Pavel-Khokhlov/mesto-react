@@ -23,6 +23,7 @@ const App = () => {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDelConfirmPopupOpen, setIsDelConfirmPopupOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(false);
   const [cardForDelete, setCardForDelete] = useState("");
 
@@ -53,6 +54,9 @@ const App = () => {
 
   const handleCardClick = (card) => {
     setSelectedCard({ link: card.link, title: card.name });
+    setTimeout(() => {
+      setIsImagePopupOpen(true);
+    }, 500);
   };
 
   const handleCardDeleteClick = (card) => {
@@ -138,7 +142,7 @@ const App = () => {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsDelConfirmPopupOpen(false);
-    setSelectedCard(false);
+    setIsImagePopupOpen(false);
   };
 
   // CLOSE POPUPs
@@ -147,7 +151,10 @@ const App = () => {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsDelConfirmPopupOpen(false);
-    setSelectedCard(false);
+    setIsImagePopupOpen(false);
+    setTimeout(() => {
+      setSelectedCard(false);
+    }, 800);
     setCardForDelete("");
   };
 
@@ -186,7 +193,11 @@ const App = () => {
           onCardDelete={handleCardDelete}
           onConfirmDelete={handleConfirmDelete}
         />
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        <ImagePopup
+          isOpen={isImagePopupOpen}
+          card={selectedCard}
+          onClose={closeAllPopups}
+        />
       </EscapeOutside>
     </CurrentUserContext.Provider>
   );

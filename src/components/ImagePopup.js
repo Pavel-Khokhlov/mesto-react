@@ -1,13 +1,13 @@
 import React from "react";
 
 const ImagePopup = (props) => {
+  const isImageOpen = props.isOpen;
+  const setImageOpenClassName = `popup popup-zoom ${
+    isImageOpen ? "popup_opened" : ""
+  }`;
+
   return (
-    <section
-      className={
-        props.card ? "popup popup-zoom popup_opened" : "popup popup-zoom"
-      }
-      onClick={props.onClose}
-    >
+    <section className={setImageOpenClassName} onClick={props.onClose}>
       <figure
         className="popup-zoom__container"
         onClick={(e) => e.stopPropagation()}
