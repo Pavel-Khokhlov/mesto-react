@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 const EditAvatarPopup = (props) => {
-  //const currentUser = useContext(CurrentUserContext);
   const [valueLink, setValueLink] = useState("");
   const [uxSaveBtn, setUxSaveBtn] = useState("Сохранить");
   const avatarLink = useRef("");
@@ -13,10 +12,7 @@ const EditAvatarPopup = (props) => {
 
   const handleSubmit = (e) => {
     setUxSaveBtn("Сохранение...");
-    // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
-
-    // Передаём значения управляемых компонентов во внешний обработчик
     props.onUpdateAvatar({
       avatar: avatarLink.current.value,
     });

@@ -18,9 +18,7 @@ const AddPlacePopup = (props) => {
 
   const handleSubmit = (e) => {
     setUxCreateBtn("Добавление...");
-    // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
-    // Передаём значения управляемых компонентов во внешний обработчик
     props.onAddPlace({
       name: cardTitle.current.value,
       link: cardLink.current.value,

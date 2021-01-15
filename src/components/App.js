@@ -9,6 +9,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import api from "../utils/api";
 import { CurrentUserContext } from "../context/CurrentUserContext";
+import EscapeOutside from "react-escape-outside";
 
 const App = () => {
   const catchError = (res) => {
@@ -118,7 +119,7 @@ const App = () => {
     closeAllPopups();
   };
 
-  // ADD NEW CARD
+  // ADD NEW CARD WORKS
   const handleAddPlaceSubmit = (name, link) => {
     api
       .newPlace(name, link)
@@ -129,6 +130,15 @@ const App = () => {
         console.log(`Ошибка: ${res.status}`);
       });
     closeAllPopups();
+  };
+
+  // CLOSE POPUPs BY ESC
+  const handleEscapeOutside = () => {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsDelConfirmPopupOpen(false);
+    setSelectedCard(false);
   };
 
   // CLOSE POPUPs
@@ -154,28 +164,30 @@ const App = () => {
         onCardDelete={handleCardDeleteClick}
       />
       <Footer />
-      <EditAvatarPopup
-        isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-        onUpdateAvatar={handleUpdateAvatar}
-      />
-      <EditProfilePopup
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-        onUpdateUser={handleUpdateUser}
-      />
-      <AddPlacePopup
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
-        onAddPlace={handleAddPlaceSubmit}
-      />
-      <ConfirmDeletePopup
-        isOpen={isDelConfirmPopupOpen}
-        onClose={closeAllPopups}
-        onCardDelete={handleCardDelete}
-        onConfirmDelete={handleConfirmDelete}
-      />
-      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+      <EscapeOutside onEscapeOutside={handleEscapeOutside}>
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+        />
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}
+        />
+        <ConfirmDeletePopup
+          isOpen={isDelConfirmPopupOpen}
+          onClose={closeAllPopups}
+          onCardDelete={handleCardDelete}
+          onConfirmDelete={handleConfirmDelete}
+        />
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+      </EscapeOutside>
     </CurrentUserContext.Provider>
   );
 };

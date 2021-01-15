@@ -23,9 +23,7 @@ const EditProfilePopup = (props) => {
 
   const handleSubmit = (e) => {
     setUxSaveBtn("Сохранение...");
-    // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
-    // Передаём значения управляемых компонентов во внешний обработчик
     props.onUpdateUser(name, description);
     setUxSaveBtn("Сохранить");
   };

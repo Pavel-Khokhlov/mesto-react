@@ -6,11 +6,8 @@ const ConfirmDeletePopup = (props) => {
 
   const handleSubmit = (e) => {
     setUxDelBtn("Удаление...");
-    // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
-    // Передаём значения управляемых компонентов во внешний обработчик
     props.onConfirmDelete();
-    //handleClose();
     setUxDelBtn("Да");
   };
 
