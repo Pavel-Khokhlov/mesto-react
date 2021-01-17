@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 const ConfirmDeletePopup = (props) => {
-  const [uxDelBtn, setUxDelBtn] = useState("Да");
 
   const handleSubmit = (e) => {
-    setUxDelBtn("Удаление...");
     e.preventDefault();
     props.onConfirmDelete();
-    setUxDelBtn("Да");
   };
 
   return (
@@ -17,7 +14,7 @@ const ConfirmDeletePopup = (props) => {
       onClose={props.onClose}
       name={`del-place`}
       title={`Вы уверенны?`}
-      button={uxDelBtn}
+      button={props.button}
       onSubmit={handleSubmit}
     />
   );
