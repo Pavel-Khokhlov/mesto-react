@@ -6,7 +6,6 @@ const EditProfilePopup = (props) => {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [uxSaveBtn, setUxSaveBtn] = useState("Сохранить");
 
   useEffect(() => {
     setName(currentUser.name);
@@ -22,10 +21,8 @@ const EditProfilePopup = (props) => {
   };
 
   const handleSubmit = (e) => {
-    setUxSaveBtn("Сохранение...");
     e.preventDefault();
     props.onUpdateUser(name, description);
-    setUxSaveBtn("Сохранить");
   };
 
   const handleClose = () => {
@@ -39,7 +36,7 @@ const EditProfilePopup = (props) => {
       isOpen={props.isOpen}
       onClose={handleClose}
       title={`Редактировать профиль`}
-      button={uxSaveBtn}
+      button={props.button}
       onSubmit={handleSubmit}
     >
       <input

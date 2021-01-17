@@ -4,7 +4,6 @@ import PopupWithForm from "./PopupWithForm";
 const AddPlacePopup = (props) => {
   const [valueTitle, setValueTitle] = useState("");
   const [valueCardLink, setValueCardLink] = useState("");
-  const [uxCreateBtn, setUxCreateBtn] = useState("Создать");
   const cardLink = useRef("");
   const cardTitle = useRef("");
 
@@ -17,7 +16,6 @@ const AddPlacePopup = (props) => {
   };
 
   const handleSubmit = (e) => {
-    setUxCreateBtn("Добавление...");
     e.preventDefault();
     props.onAddPlace({
       name: cardTitle.current.value,
@@ -25,7 +23,6 @@ const AddPlacePopup = (props) => {
     });
     setValueTitle("");
     setValueCardLink("");
-    setUxCreateBtn("Создать");
   };
 
   const handleClose = () => {
@@ -39,7 +36,7 @@ const AddPlacePopup = (props) => {
       isOpen={props.isOpen}
       onClose={handleClose}
       title={`Новое место`}
-      button={uxCreateBtn}
+      button={props.button}
       onSubmit={handleSubmit}
     >
       <input

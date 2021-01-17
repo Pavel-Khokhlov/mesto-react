@@ -3,7 +3,6 @@ import PopupWithForm from "./PopupWithForm";
 
 const EditAvatarPopup = (props) => {
   const [valueLink, setValueLink] = useState("");
-  const [uxSaveBtn, setUxSaveBtn] = useState("Сохранить");
   const avatarLink = useRef("");
 
   const handleChangeAvatar = (e) => {
@@ -11,13 +10,11 @@ const EditAvatarPopup = (props) => {
   };
 
   const handleSubmit = (e) => {
-    setUxSaveBtn("Сохранение...");
     e.preventDefault();
     props.onUpdateAvatar({
       avatar: avatarLink.current.value,
     });
     setValueLink("");
-    setUxSaveBtn("Сохранить");
   };
 
   const handleClose = () => {
@@ -30,7 +27,7 @@ const EditAvatarPopup = (props) => {
       isOpen={props.isOpen}
       onClose={handleClose}
       title={`Обновить аватар`}
-      button={uxSaveBtn}
+      button={props.button}
       onSubmit={handleSubmit}
     >
       <input
