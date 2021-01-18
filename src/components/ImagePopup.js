@@ -20,11 +20,11 @@ const ImagePopup = (props) => {
         />
         <img
           src={props.card.link}
-          alt={props.card.title}
+          alt={props.card.name}
           className="popup-zoom__image"
         />
         <figcaption className="popup-zoom__caption">
-          {props.card.title}
+          {props.card.name}
         </figcaption>
       </figure>
     </section>

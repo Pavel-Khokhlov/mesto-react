@@ -1,25 +1,24 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 const EditAvatarPopup = (props) => {
-  const [valueLink, setValueLink] = useState("");
   const avatarLink = useRef("");
-
-  const handleChangeAvatar = (e) => {
-    setValueLink(e.target.value);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     props.onUpdateAvatar({
-      avatar: avatarLink.current.value,
+      link: avatarLink.current.value,
+      fn: clearAvatarValue(),
     });
-    setValueLink("");
   };
 
   const handleClose = () => {
     props.onClose();
-    setValueLink('');
+    clearAvatarValue();
+  };
+
+  const clearAvatarValue = () => {
+    avatarLink.current.value = "";
   };
 
   return (
@@ -37,8 +36,6 @@ const EditAvatarPopup = (props) => {
         placeholder="Ссылка на аватар"
         autoComplete="off"
         required
-        value={valueLink}
-        onChange={handleChangeAvatar}
       />
       <span id="avatarLink-error" className="popup__input-error" />
     </PopupWithForm>

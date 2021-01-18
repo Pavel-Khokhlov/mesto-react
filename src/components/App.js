@@ -11,10 +11,6 @@ import api from "../utils/api";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 
 const App = () => {
-  const catchError = (res) => {
-    alert(`Всё идёт не по плану. ${res.status}`);
-  };
-
   // STATES
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
@@ -32,15 +28,25 @@ const App = () => {
 
   // EFFECTS
   useEffect(() => {
-    api.getUserInfo().then((res) => {
-      setCurrentUser(res);
-    });
+    api
+      .getUserInfo()
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((res) => {
+        console.log(`Ошибка, получения данных пользователя: ${res.status}`);
+      });
   }, []);
 
   useEffect(() => {
-    api.getPlaces().then((res) => {
-      setCards(res);
-    });
+    api
+      .getPlaces()
+      .then((res) => {
+        setCards(res);
+      })
+      .catch((res) => {
+        console.log(`Ошибка загрузки карточек с сервера: ${res.status}`);
+      });
   }, []);
 
   const handleEsc = (e) => {
@@ -65,7 +71,7 @@ const App = () => {
   };
 
   const handleCardClick = (card) => {
-    setSelectedCard({ link: card.link, title: card.name });
+    setSelectedCard(card);
     setTimeout(() => {
       setIsImagePopupOpen(true);
     }, 500);
@@ -87,19 +93,24 @@ const App = () => {
         setCurrentUser(res);
       })
       .then(() => closeAllPopups())
-      .catch(catchError);
+      .catch((res) => {
+        console.log(`Ошибка обновления профиля: ${res.status}`);
+      });
   };
 
   // UPDATE AVATAR WORKS
-  const handleUpdateAvatar = ({ avatar }) => {
+  const handleUpdateAvatar = ({ link, fn }) => {
     setUxSaveBtn("Сохранение...");
     api
-      .patchUserAvatar(avatar)
+      .patchUserAvatar(link)
       .then((res) => {
         setCurrentUser(res);
       })
       .then(() => closeAllPopups())
-      .catch(catchError);
+      .then(() => fn)
+      .catch((res) => {
+        console.log(`Ошибка обновления аватара: ${res.status}`);
+      });
   };
 
   // LIKE WORKS
@@ -129,7 +140,7 @@ const App = () => {
       })
       .then(() => closeAllPopups())
       .catch((res) => {
-        console.log(`Ошибка: ${res.status}`);
+        console.log(`Ошибка удаления карточки: ${res.status}`);
       });
   };
 
@@ -139,16 +150,17 @@ const App = () => {
   };
 
   // ADD NEW CARD WORKS
-  const handleAddPlaceSubmit = (name, link) => {
+  const handleAddPlaceSubmit = ({ name, link, fn }) => {
     setUxCreateBtn("Добавление...");
     api
-      .newPlace(name, link)
+      .newPlace({ name, link })
       .then((newCard) => {
         setCards([newCard, ...cards]);
       })
       .then(() => closeAllPopups())
+      .then(() => fn)
       .catch((res) => {
-        console.log(`Ошибка: ${res.status}`);
+        console.log(`Ошибка добавления карточки: ${res.status}`);
       });
   };
 
