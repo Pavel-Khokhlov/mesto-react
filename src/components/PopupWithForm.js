@@ -23,7 +23,9 @@ const PopupWithForm = (props) => {
         {props.children}
         <button
           type="submit"
-          className="popup__save-btn"
+          className={`popup__save-btn ${
+           !props.onValid ? "" : "popup__save-btn_inactive"
+          }`}
           aria-label="Сохранить новый профиль"
         >
           {props.button}
