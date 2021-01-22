@@ -99,7 +99,7 @@ const App = () => {
   };
 
   // UPDATE AVATAR WORKS
-  const handleUpdateAvatar = ({ link, fn }) => {
+  const handleUpdateAvatar = ({ link }) => {
     setUxSaveBtn("Сохранение...");
     api
       .patchUserAvatar(link)
@@ -107,7 +107,6 @@ const App = () => {
         setCurrentUser(res);
       })
       .then(() => closeAllPopups())
-      .then(() => fn)
       .catch((res) => {
         console.log(`Ошибка обновления аватара: ${res.status}`);
       });
@@ -115,7 +114,6 @@ const App = () => {
 
   // LIKE WORKS
   const handleCardLike = (card) => {
-    // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
     api
       .changeLikeCardStatus(card._id, isLiked)
@@ -158,7 +156,7 @@ const App = () => {
         setCards([newCard, ...cards]);
       })
       .then(() => closeAllPopups())
-      .then(() => fn)
+      .then(() => fn())
       .catch((res) => {
         console.log(`Ошибка добавления карточки: ${res.status}`);
       });

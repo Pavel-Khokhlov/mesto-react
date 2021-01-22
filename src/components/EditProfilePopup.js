@@ -8,9 +8,11 @@ const EditProfilePopup = (props) => {
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
+    setTimeout(() => {
+      setName(currentUser.name);
+      setDescription(currentUser.about);
+    }, 500);
+  }, [currentUser, props.isOpen]);
 
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -27,8 +29,6 @@ const EditProfilePopup = (props) => {
 
   const handleClose = () => {
     props.onClose();
-    setName(currentUser.name);
-    setDescription(currentUser.about);
   };
 
   return (
@@ -43,7 +43,7 @@ const EditProfilePopup = (props) => {
         type="text"
         className="popup__input"
         placeholder="Имя Фамилия"
-        value={name || ''}
+        value={name || ""}
         onChange={handleChangeName}
       />
       <span id="fullName-error" className="popup__input-error" />
@@ -51,7 +51,7 @@ const EditProfilePopup = (props) => {
         type="text"
         className="popup__input"
         placeholder="Профессия или должность"
-        value={description || ''}
+        value={description || ""}
         onChange={handleChangeDescription}
       />
       <span id="jobPosition-error" className="popup__input-error" />

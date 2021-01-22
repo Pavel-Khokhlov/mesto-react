@@ -1,22 +1,27 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 const AddPlacePopup = (props) => {
   const cardLink = useRef("");
   const cardTitle = useRef("");
 
+  useEffect(() => {
+    setTimeout(() => {
+      clearProfileValue();
+    }, 500);
+  }, [props.isOpen]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     props.onAddPlace({
       name: cardTitle.current.value,
       link: cardLink.current.value,
-      fn: clearProfileValue(),
+      fn: clearProfileValue,
     });
   };
 
   const handleClose = () => {
     props.onClose();
-    clearProfileValue();
   };
 
   const clearProfileValue = () => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 const EditAvatarPopup = (props) => {
@@ -8,6 +8,10 @@ const EditAvatarPopup = (props) => {
     linklValid: true,
     formValid: true,
   });
+
+  useEffect(() => {
+    setValue({ link: "", formErrors: "", linklValid: true, formValid: true });
+  }, [props.isOpen]);
 
   const validateLink = (link) => {
     const reUrl = /^(ftp|http|https):\/\/[^ "]+$/;
@@ -37,17 +41,11 @@ const EditAvatarPopup = (props) => {
     e.preventDefault();
     props.onUpdateAvatar({
       link: value.link,
-      fn: clearAvatarValue(),
     });
   };
 
   const handleClose = () => {
     props.onClose();
-    clearAvatarValue();
-  };
-
-  const clearAvatarValue = () => {
-    setValue({ link: "", formErrors: "", linklValid: true, formValid: true });
   };
 
   return (
