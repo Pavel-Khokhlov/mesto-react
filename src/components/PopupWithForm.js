@@ -11,7 +11,6 @@ const PopupWithForm = (props) => {
         noValidate
         onClick={(e) => e.stopPropagation()}
         onSubmit={props.onSubmit}
-        //onKeyDown={props.onKeyDown}
       >
         <button
           type="button"
