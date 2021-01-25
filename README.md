@@ -1,34 +1,32 @@
-# Работа над ошибками
-* исправлены все ошибки после первого ревью
-* добавлена валидация формы изменения аватара
+# Sprint #11 Mesto-REACT
 
-Вопрос?
-Закрытие по Esc:
-при редактировании формы (поле не пустое)
-нажимаем Esc - все закрывается но не сбрасывается стейт
-Необходимо поднимать стейт в App?
+* [Link to the project](http://pavel-khokhlov.github.io/mesto-react)
 
-# Проект (11): Место REACT
+### Review
+CREATE REACT APPLICATOPN (CRA)
+This is the Page with profile data and users pictures.
+All data is located on the server.
+There is an API function to connect with server and collect required information.
+There are some function working through API requests:
+1. Update profile data
+2. Replace avatar
+3. Add new places
+4. Delete my places via confirmation popup
+5. Like/Dislike
 
-* [ссылка на проект - еще не работает](http://pavel-khokhlov.github.io/mesto-react)
+### Technologies Технологии
+I have implemented HTML, CSS for creating adaptive site.
+This site was created as a REACT aplication.
+Added feature to close popup forms by ESC
+Inplemented API requests to update data
 
-### Обзор
-Проект собран на REACT
-Страница с отображением профиля пользователя и карточек пользователей. Все данные лежат на сервере. Сделана функция API - запросы к серверу.
-Созданы функции обновления профиля, аватара, добавление новых карт, функция like/dislike, удаление карт через форму подтверждения. Создана функция закрытия попап по клавише Esc.
+Folder pages:
+* index.js
 
-### Технологии
-В проекте были использовы HTML CSS, применены технологии адаптивной и резиновой верстки.
-Организована работа с сервером через API. Использованы функции добавление удаления элементов страницы.
-Добавлена валидация формы изменения аватара.
+Folder: utils
+* api.js - methods to communicate with server
 
-Преобразование кода:
-* index.js - перемещен в папку pages
-
-В папке: utils
-* api.js - методы работы с сервером
-
-Создана папка с функциональными компонентами:
+Folder with functional components:
 * AddPlacePopup.js
 * App.js
 * Card.js
@@ -40,18 +38,17 @@
 * ImagePopup.js
 * Main.js
 * PopupWithForm.js
-* PopupWithForm.js
 
-Создана папка context:
+Folder with context:
 * CurrentUserContext.js
 
-Работает на большешстве устройств.
-**Основные точки проверки при размерах экрана**
+Working on most of devices with diferent view windows 
+**Main point of design break**
 * 320px 
 * 1280px
 
-**Необходимо добавить**
-* Валидацию форм: профиля и добавление новой карточки
+**Required to add some features**
+* Validate forms: profile form and form to add new place
 
 # Getting Started with Create React App
 
