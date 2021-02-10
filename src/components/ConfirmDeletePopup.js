@@ -13,7 +13,7 @@ const ConfirmDeletePopup = (props) => {
       isOpen={props.isOpen}
       onClose={props.onClose}
       name={`del-place`}
-      title={`Вы уверенны?`}
+      title={`Are you shure?`}
       button={props.button}
       onSubmit={handleSubmit}
     />

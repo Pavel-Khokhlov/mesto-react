@@ -4,13 +4,20 @@ import PopupWithForm from "./PopupWithForm";
 const EditAvatarPopup = (props) => {
   const [value, setValue] = useState({
     link: "",
-    formErrors: "",
-    linklValid: true,
-    formValid: true,
+    linkValid: true,
+    linkErrorMessage: "",
+    formValid: false,
   });
 
   useEffect(() => {
-    setValue({ link: "", formErrors: "", linklValid: true, formValid: true });
+    setTimeout(() => {
+      setValue({
+        link: "",
+        linkValid: true,
+        linkErrorMessage: "",
+        formValid: false,
+      });
+    }, 500);
   }, [props.isOpen]);
 
   const validateLink = (link) => {
@@ -18,16 +25,16 @@ const EditAvatarPopup = (props) => {
     if (reUrl.test(link)) {
       setValue({
         link: link,
-        formErrors: "",
-        linklValid: false,
-        formValid: false,
+        linkValid: true,
+        linkErrorMessage: "",
+        formValid: true,
       });
     } else {
       setValue({
         link: link,
-        formErrors: "Проверьте ссылку",
-        linkValid: true,
-        formValid: true,
+        linkValid: false,
+        linkErrorMessage: "Check your link",
+        formValid: false,
       });
     }
   };
@@ -52,7 +59,7 @@ const EditAvatarPopup = (props) => {
     <PopupWithForm
       isOpen={props.isOpen}
       onClose={handleClose}
-      title={`Обновить аватар`}
+      title={`Update avatar`}
       button={props.button}
       onSubmit={handleSubmit}
       onValid={value.formValid}
@@ -61,9 +68,9 @@ const EditAvatarPopup = (props) => {
         type="url"
         name="link"
         className={`popup__input ${
-          !value.linkValid ? "" : "popup__input_invalid"
+          !value.linkValid ? "popup__input_invalid" : ""
         }`}
-        placeholder="Ссылка на аватар"
+        placeholder="Avatar's link"
         autoComplete="off"
         value={value.link || ""}
         onChange={handleInput}
@@ -71,10 +78,10 @@ const EditAvatarPopup = (props) => {
       <span
         id="avatarLink-error"
         className={`popup__input-error ${
-          !value.formValid ? "" : "popup__input-error_active"
+          value.formValid ? "" : "popup__input-error_active"
         }`}
       >
-        {value.formErrors}
+        {value.linkErrorMessage}
       </span>
     </PopupWithForm>
   );

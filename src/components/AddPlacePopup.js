@@ -33,7 +33,7 @@ const AddPlacePopup = (props) => {
     <PopupWithForm
       isOpen={props.isOpen}
       onClose={handleClose}
-      title={`Новое место`}
+      title={`New place`}
       button={props.button}
       onSubmit={handleSubmit}
     >
@@ -43,7 +43,7 @@ const AddPlacePopup = (props) => {
         id="placeName"
         name="name"
         className="popup__input popup__input_name-place"
-        placeholder="Название"
+        placeholder="Title"
         autoComplete="off"
         minLength={2}
         maxLength={30}
@@ -56,7 +56,7 @@ const AddPlacePopup = (props) => {
         id="placeLink"
         name="link"
         className="popup__input popup__input_link-place"
-        placeholder="Ссылка на картинку"
+        placeholder="Link to the picture"
         autoComplete="off"
         required
       />

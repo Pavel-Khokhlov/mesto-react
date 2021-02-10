@@ -27,6 +27,7 @@ const Card = (props) => {
   const cardLikeButtonClassName = `button place__like-btn ${
     isLiked ? "place__like-btn_active" : ""
   }`;
+  const cardLikeCountColorClassName = `paragraph ${isLiked ? "paragraph_red" : ""}`
 
   return (
     <li className="place">
@@ -53,7 +54,7 @@ const Card = (props) => {
             aria-label="поставить лайк"
             onClick={handleLikeClick}
           />
-          <p className="paragraph place__like-count">
+          <p className={cardLikeCountColorClassName}>
             {props.card.likes.length}
           </p>
         </div>

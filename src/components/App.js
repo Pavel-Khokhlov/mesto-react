@@ -4,11 +4,14 @@ import Main from "./Main";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
+import EditAvatarPopup from './EditAvatarPopup';
+//import EditAvatarUseRef from "./EditAvatarUseRef";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import api from "../utils/api";
 import { CurrentUserContext } from "../context/CurrentUserContext";
+
+import scrollLock from 'scroll-lock';
 
 const App = () => {
   // STATES
@@ -22,9 +25,9 @@ const App = () => {
   const [selectedCard, setSelectedCard] = useState(false);
   const [cardForDelete, setCardForDelete] = useState("");
 
-  const [uxSaveBtn, setUxSaveBtn] = useState("Сохранить");
-  const [uxCreateBtn, setUxCreateBtn] = useState("Создать");
-  const [uxDelBtn, setUxDelBtn] = useState("Да");
+  const [uxSaveBtn, setUxSaveBtn] = useState("Save");
+  const [uxCreateBtn, setUxCreateBtn] = useState("Create");
+  const [uxDelBtn, setUxDelBtn] = useState("Yes!");
 
   // EFFECTS
   useEffect(() => {
@@ -58,16 +61,19 @@ const App = () => {
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
     window.addEventListener("keydown", handleEsc);
+    scrollLock.disablePageScroll();
   };
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
     window.addEventListener("keydown", handleEsc);
+    scrollLock.disablePageScroll();
   };
 
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
     window.addEventListener("keydown", handleEsc);
+    scrollLock.disablePageScroll();
   };
 
   const handleCardClick = (card) => {
@@ -76,17 +82,19 @@ const App = () => {
       setIsImagePopupOpen(true);
     }, 500);
     window.addEventListener("keydown", handleEsc);
+    scrollLock.disablePageScroll();
   };
 
   const handleCardDeleteClick = (card) => {
     setIsDelConfirmPopupOpen(true);
     setCardForDelete(card);
     window.addEventListener("keydown", handleEsc);
+    scrollLock.disablePageScroll();
   };
 
   // UPDATE PROFILE WORKS
   const handleUpdateUser = (name, description) => {
-    setUxSaveBtn("Сохранение...");
+    setUxSaveBtn("Saving...");
     api
       .patchUserInfo({ name: name, about: description })
       .then((res) => {
@@ -100,7 +108,7 @@ const App = () => {
 
   // UPDATE AVATAR WORKS
   const handleUpdateAvatar = ({ link }) => {
-    setUxSaveBtn("Сохранение...");
+    setUxSaveBtn("Saving...");
     api
       .patchUserAvatar(link)
       .then((res) => {
@@ -128,7 +136,7 @@ const App = () => {
 
   // DELETE WORKS
   const handleCardDelete = (card) => {
-    setUxDelBtn("Удаление...");
+    setUxDelBtn("Deleting...");
     api
       .deleteCard(card._id)
       .then((res) => {
@@ -149,7 +157,7 @@ const App = () => {
 
   // ADD NEW CARD WORKS
   const handleAddPlaceSubmit = ({ name, link, fn }) => {
-    setUxCreateBtn("Добавление...");
+    setUxCreateBtn("Adding...");
     api
       .newPlace({ name, link })
       .then((newCard) => {
@@ -170,10 +178,11 @@ const App = () => {
     setIsDelConfirmPopupOpen(false);
     setIsImagePopupOpen(false);
     setCardForDelete("");
-    setUxSaveBtn("Сохранить");
-    setUxCreateBtn("Создать");
-    setUxDelBtn("Да");
+    setUxSaveBtn("Save");
+    setUxCreateBtn("Create");
+    setUxDelBtn("Yes!");
     window.removeEventListener("keydown", handleEsc);
+    scrollLock.enablePageScroll();
   };
 
   return (
