@@ -77,10 +77,7 @@ class Api {
   }
 
   _checkPromise(res) {
-    if (!res.ok) {
-      Promise.reject(`Error ${res.status}`);
-    }
-    return res.json();
+    return res.ok ? res.json() : Promise.reject(`Error ${res.status}`);
   }
 }
 

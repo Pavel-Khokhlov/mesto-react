@@ -126,8 +126,7 @@ const App = () => {
     api
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
-        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
-        setCards(newCards);
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
       .catch((res) => {
         console.log(`Ошибка: ${res.status}`);
@@ -139,10 +138,8 @@ const App = () => {
     setUxDelBtn("Deleting...");
     api
       .deleteCard(card._id)
-      .then((res) => {
-        console.log(res);
-        const newCards = cards.filter((c) => c._id !== card._id);
-        setCards(newCards);
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id));
       })
       .then(() => closeAllPopups())
       .catch((res) => {
