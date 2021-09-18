@@ -1,66 +1,57 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useFormWithValidation } from "./Hooks/useForm.jsx";
 import PopupWithForm from "./PopupWithForm";
+import Input from "./Input/Input.jsx";
 
-const AddPlacePopup = (props) => {
-  const cardLink = useRef("");
-  const cardTitle = useRef("");
+import { DELAY } from "../utils/config.js";
+import { newCard } from "../store/dataSlice.js";
+import { closeAllPopups } from "../store/appSlice.js";
 
-  useEffect(() => {
-    setTimeout(() => {
-      clearProfileValue();
-    }, 500);
-  }, [props.isOpen]);
+const AddPlacePopup = ({ button }) => {
+  const dispatch = useDispatch();
+  const { values, errors, isValid, handleChange, resetForm } =
+    useFormWithValidation();
+  const { isAddPlacePopupOpen } = useSelector((state) => state.app);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onAddPlace({
-      name: cardTitle.current.value,
-      link: cardLink.current.value,
-      fn: clearProfileValue,
-    });
+    dispatch(newCard(values));
+    setTimeout(() => {
+      handleClose();
+    }, DELAY);
   };
 
   const handleClose = () => {
-    props.onClose();
-  };
-
-  const clearProfileValue = () => {
-    cardTitle.current.value = "";
-    cardLink.current.value = "";
+    dispatch(closeAllPopups());
+    resetForm();
   };
 
   return (
     <PopupWithForm
-      isOpen={props.isOpen}
+      isOpen={isAddPlacePopupOpen}
       onClose={handleClose}
-      title={`New place`}
-      button={props.button}
+      title="New place"
+      button={button}
       onSubmit={handleSubmit}
+      onValid={isValid}
     >
-      <input
-        ref={cardTitle}
+      <Input
         type="text"
-        id="placeName"
-        name="name"
-        className="popup__input popup__input_name-place"
-        placeholder="Title"
-        autoComplete="off"
-        minLength={2}
-        maxLength={30}
-        required
+        inputName="name"
+        labelName="Place title"
+        value={values.name || ""}
+        onChange={handleChange}
+        errors={errors.name}
       />
-      <span id="placeName-error" className="popup__input-error" />
-      <input
-        ref={cardLink}
+      <Input
         type="url"
-        id="placeLink"
-        name="link"
-        className="popup__input popup__input_link-place"
-        placeholder="Link to the picture"
-        autoComplete="off"
-        required
+        inputName="link"
+        labelName="Place link"
+        value={values.link || ""}
+        onChange={handleChange}
+        errors={errors.link}
       />
-      <span id="placeLink-error" className="popup__input-error" />
     </PopupWithForm>
   );
 };

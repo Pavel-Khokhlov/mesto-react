@@ -1,0 +1,12 @@
+@import url(__label/input__label.css);
+@import url(__error/input__error.css);
+@import url(__field/input__field.css);
+
+.input {
+  position: relative;
+}
+
+.input:hover .input__label {
+  top: -15px;
+  font-size: min(12px, 3vw);
+}

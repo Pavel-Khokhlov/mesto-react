@@ -1,0 +1,10 @@
+@import url(./_blur/input__label_blur.css);
+@import url(./_focus/input__label_focus.css);
+
+.input__label {
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: 0.8s ease-in-out;
+}

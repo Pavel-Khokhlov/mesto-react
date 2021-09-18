@@ -1,0 +1,4 @@
+.input__label_focus {
+  top: -15px;
+  font-size: min(12px, 3vw);
+}

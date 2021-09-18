@@ -1,0 +1,26 @@
+.input__field {
+  width: 100%;
+  font-size: min(18px, 4vw);
+  font-weight: bold;
+  background-color: transparent;
+  outline: none;
+  margin: 0;
+  line-height: 2;
+  border: none;
+  border-bottom: 1px solid #a0a0a0;
+  box-sizing: border-box;
+  transition: 0.8s ease;
+}
+
+.input__field:focus {
+  box-shadow: 0 0 4px rgba(52, 86, 243, 0.6);
+}
+
+.input__field:-webkit-autofill,
+.input__field:-webkit-autofill:hover, 
+.input__field:-webkit-autofill:focus, 
+.input__field:-webkit-autofill:active
+{
+ -webkit-background-clip: text;
+ -webkit-border-image: none;
+} 

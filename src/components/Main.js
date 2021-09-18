@@ -1,9 +1,33 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Card from "./Card";
-import { CurrentUserContext } from "../context/CurrentUserContext";
+import {
+  openAddPlacePopup,
+  openEditAvatarPopup,
+  openEditProfilePopup,
+} from "../store/appSlice";
+import { fetchCards } from "../store/dataSlice";
 
-const Main = (props) => {
-  const currentUser = useContext(CurrentUserContext);
+const Main = () => {
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.users);
+  const { cards } = useSelector((state) => state.data);
+
+  useEffect(() => {
+    dispatch(fetchCards());
+  }, [dispatch]);
+
+  const handleEditAvatar = () => {
+    dispatch(openEditAvatarPopup());
+  };
+
+  const handleEditProfile = () => {
+    dispatch(openEditProfilePopup());
+  };
+
+  const handleAddPlace = () => {
+    dispatch(openAddPlacePopup());
+  };
 
   return (
     <main className="main">
@@ -19,7 +43,7 @@ const Main = (props) => {
             type="button"
             className="profile__avatar-btn"
             aria-label="Редактировать аватар"
-            onClick={props.onEditAvatar}
+            onClick={handleEditAvatar}
           />
         </div>
         <div className="profile__info">
@@ -29,7 +53,7 @@ const Main = (props) => {
               type="button"
               className="button profile__edit-btn"
               aria-label="кнопка редактировать профиль"
-              onClick={props.onEditProfile}
+              onClick={handleEditProfile}
             />
           </div>
           <p className="profile__job">{currentUser.about}</p>
@@ -38,21 +62,13 @@ const Main = (props) => {
           type="button"
           className="button profile__add-btn"
           aria-label="кнопка добавить место"
-          onClick={props.onAddPlace}
+          onClick={handleAddPlace}
         />
       </section>
       {/* PLACES */}
       <ul className="places">
-        {props.cards.map((i) => {
-          return (
-            <Card
-              key={i._id}
-              card={i}
-              onCardClick={props.onCardClick}
-              onCardLike={props.onCardLike}
-              onCardDelete={props.onCardDelete}
-            />
-          );
+        {cards.map((i) => {
+          return <Card key={i._id} card={i} />;
         })}
       </ul>
     </main>

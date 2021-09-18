@@ -1,33 +1,38 @@
 import React from "react";
-import { CurrentUserContext } from "../context/CurrentUserContext";
+import { useSelector, useDispatch } from "react-redux";
+import { openZoomImagePopup, openDelConfirmPopup } from "../store/appSlice";
+import { dislikeCard, likeCard } from "../store/dataSlice";
 
-const Card = (props) => {
-  const handleCardClick = () => {
-    props.onCardClick(props.card);
-  };
+const Card = ({ card }) => {
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.users);
 
-  const handleLikeClick = () => {
-    props.onCardLike(props.card);
-  };
-
-  const handleDeleteClick = () => {
-    props.onCardDelete(props.card);
-  };
-
-  const currentUser = React.useContext(CurrentUserContext);
-  
   // SET DELETE BTN TO MY CARD
-  const isOwn = props.card.owner._id === currentUser._id;
+  const isOwn = card.owner._id === currentUser._id;
   const cardDeleteButtonClassName = `button place__del-btn ${
     isOwn ? "" : "place__del-btn_disable"
   }`;
 
   // SET LIKE TO MY CARD
-  const isLiked = props.card.likes.some((i) => i._id === currentUser._id);
+  const isLiked = card.likes.some((i) => i._id === currentUser._id);
   const cardLikeButtonClassName = `button place__like-btn ${
     isLiked ? "place__like-btn_active" : ""
   }`;
-  const cardLikeCountColorClassName = `paragraph ${isLiked ? "paragraph_red" : ""}`
+  const cardLikeCountColorClassName = `paragraph ${
+    isLiked ? "paragraph_red" : ""
+  }`;
+
+  const handleCardClick = () => {
+    dispatch(openZoomImagePopup(card));
+  };
+
+  const handleLikeClick = () => {
+    isLiked ? dispatch(dislikeCard(card._id)) : dispatch(likeCard(card._id));
+  };
+
+  const handleDeleteClick = () => {
+    dispatch(openDelConfirmPopup(card));
+  };
 
   return (
     <li className="place">
@@ -39,14 +44,14 @@ const Card = (props) => {
       />
       <button type="button" className="button place__img-btn">
         <img
-          src={props.card.link}
-          alt={props.card.name}
+          src={card.link}
+          alt={card.name}
           className="place__image"
           onClick={handleCardClick}
         />
       </button>
       <div className="place__info">
-        <h2 className="place__title">{props.card.name}</h2>
+        <h2 className="place__title">{card.name}</h2>
         <div className="place__like-area">
           <button
             type="button"
@@ -54,9 +59,7 @@ const Card = (props) => {
             aria-label="поставить лайк"
             onClick={handleLikeClick}
           />
-          <p className={cardLikeCountColorClassName}>
-            {props.card.likes.length}
-          </p>
+          <p className={cardLikeCountColorClassName}>{card.likes.length}</p>
         </div>
       </div>
     </li>

@@ -1,88 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useFormWithValidation } from "./Hooks/useForm.jsx";
+import { useSelector, useDispatch } from "react-redux";
 import PopupWithForm from "./PopupWithForm";
+import Input from "./Input/Input.jsx";
+import { DELAY } from "../utils/config.js";
+import { closeAllPopups } from "../store/appSlice.js";
+import { patchAvatar } from "../store/userSlice.js";
 
-const EditAvatarPopup = (props) => {
-  const [value, setValue] = useState({
-    link: "",
-    linkValid: true,
-    linkErrorMessage: "",
-    formValid: false,
-  });
-
-  useEffect(() => {
-    setTimeout(() => {
-      setValue({
-        link: "",
-        linkValid: true,
-        linkErrorMessage: "",
-        formValid: false,
-      });
-    }, 500);
-  }, [props.isOpen]);
-
-  const validateLink = (link) => {
-    const reUrl = /^(ftp|http|https):\/\/[^ "]+$/;
-    if (reUrl.test(link)) {
-      setValue({
-        link: link,
-        linkValid: true,
-        linkErrorMessage: "",
-        formValid: true,
-      });
-    } else {
-      setValue({
-        link: link,
-        linkValid: false,
-        linkErrorMessage: "Check your link",
-        formValid: false,
-      });
-    }
-  };
-
-  const handleInput = (e) => {
-    setValue(e.target.value);
-    validateLink(e.target.value);
-  };
+const EditAvatarPopup = ({ button }) => {
+  const dispatch = useDispatch();
+  const { values, errors, isValid, handleChange, resetForm } =
+    useFormWithValidation();
+  const { isEditAvatarPopupOpen } = useSelector((state) => state.app);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onUpdateAvatar({
-      link: value.link,
-    });
+    dispatch(patchAvatar(values));
+    console.log(values);
+    setTimeout(() => {
+      handleClose();
+    }, DELAY);
   };
 
   const handleClose = () => {
-    props.onClose();
+    dispatch(closeAllPopups());
+    resetForm();
   };
 
   return (
     <PopupWithForm
-      isOpen={props.isOpen}
+      isOpen={isEditAvatarPopupOpen}
       onClose={handleClose}
-      title={`Update avatar`}
-      button={props.button}
+      title="Update avatar"
+      button={button}
       onSubmit={handleSubmit}
-      onValid={value.formValid}
+      onValid={isValid}
     >
-      <input
+      <Input
         type="url"
-        name="link"
-        className={`popup__input ${
-          !value.linkValid ? "popup__input_invalid" : ""
-        }`}
-        placeholder="Avatar's link"
-        autoComplete="off"
-        value={value.link || ""}
-        onChange={handleInput}
+        inputName="link"
+        labelName="Avatar's link"
+        value={values.link || ""}
+        onChange={handleChange}
+        errors={errors.link}
       />
-      <span
-        id="avatarLink-error"
-        className={`popup__input-error ${
-          value.formValid ? "" : "popup__input-error_active"
-        }`}
-      >
-        {value.linkErrorMessage}
-      </span>
     </PopupWithForm>
   );
 };
