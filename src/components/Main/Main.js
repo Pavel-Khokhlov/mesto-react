@@ -1,17 +1,20 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Card from "./Card";
+import Card from "../Card";
 import {
   openAddPlacePopup,
   openEditAvatarPopup,
   openEditProfilePopup,
-} from "../store/appSlice";
-import { fetchCards } from "../store/dataSlice";
+} from "../../store/appSlice";
+import { fetchCards } from "../../store/dataSlice";
+import Loader from "../Loader/Loader";
+
+import './Main.css';
 
 const Main = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.users);
-  const { cards } = useSelector((state) => state.data);
+  const { cards, status } = useSelector((state) => state.data);
 
   useEffect(() => {
     dispatch(fetchCards());
@@ -29,6 +32,9 @@ const Main = () => {
     dispatch(openAddPlacePopup());
   };
 
+  if(status === 'loading') {
+    return <Loader />
+  }
   return (
     <main className="main">
       {/* PROFILE */}

@@ -1,4 +1,5 @@
 # Sprint #11 Mesto-REACT
+This is one of the first Yandex-Praktikum study project
 
 * [Link to the project](http://pavel-khokhlov.github.io/mesto-react)
 
@@ -9,6 +10,7 @@ appSlice.js - for common function
 userSlice - for API concernig user requests 
 dataSlice - for API conserning card requests
 2. Created personal HOOK for validate forms
+3. Created LOADER while content is loading 
 ### Review
 CREATE REACT APPLICATOPN (CRA)
 This is the Page with profile data and users pictures.

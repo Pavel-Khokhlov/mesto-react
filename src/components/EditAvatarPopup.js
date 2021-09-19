@@ -4,27 +4,28 @@ import { useSelector, useDispatch } from "react-redux";
 import PopupWithForm from "./PopupWithForm";
 import Input from "./Input/Input.jsx";
 import { DELAY } from "../utils/config.js";
-import { closeAllPopups } from "../store/appSlice.js";
+import { closeAllPopups, resetUxButtons, setUxSaveBtn } from "../store/appSlice.js";
 import { patchAvatar } from "../store/userSlice.js";
 
-const EditAvatarPopup = ({ button }) => {
+const EditAvatarPopup = () => {
   const dispatch = useDispatch();
   const { values, errors, isValid, handleChange, resetForm } =
     useFormWithValidation();
-  const { isEditAvatarPopupOpen } = useSelector((state) => state.app);
+  const { isEditAvatarPopupOpen, uxSaveBtn } = useSelector((state) => state.app);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(setUxSaveBtn())
     dispatch(patchAvatar(values));
-    console.log(values);
-    setTimeout(() => {
-      handleClose();
-    }, DELAY);
+    handleClose();
   };
 
   const handleClose = () => {
     dispatch(closeAllPopups());
-    resetForm();
+    setTimeout(() => {
+      resetForm();
+      dispatch(resetUxButtons());
+    }, DELAY);
   };
 
   return (
@@ -32,7 +33,7 @@ const EditAvatarPopup = ({ button }) => {
       isOpen={isEditAvatarPopupOpen}
       onClose={handleClose}
       title="Update avatar"
-      button={button}
+      button={uxSaveBtn}
       onSubmit={handleSubmit}
       onValid={isValid}
     >

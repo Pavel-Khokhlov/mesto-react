@@ -42,7 +42,7 @@ const Card = ({ card }) => {
         aria-label="удалить место"
         onClick={handleDeleteClick}
       />
-      <button type="button" className="button place__img-btn">
+      <button type="button" className="button place__ratio-box">
         <img
           src={card.link}
           alt={card.name}

@@ -1,0 +1,9 @@
+@import url(./__gif/loader__gif.css);
+
+.loader {
+  max-width: 882px;
+  margin: 0 auto;
+  flex-grow: 1;
+  display: grid;
+  place-content: center;
+}

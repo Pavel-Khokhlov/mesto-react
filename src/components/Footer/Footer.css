@@ -1,0 +1,10 @@
+@import url(__copyright/footer__copyright.css);
+
+.footer {
+  min-height: 10vh;
+  width: min(882px, 100vw);
+  margin: 0 auto;
+  height: min(104px, 23.75vh);
+  display: grid;
+  place-content: center;
+}

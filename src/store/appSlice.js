@@ -10,15 +10,18 @@ const appSlice = createSlice({
     isZoomImagePopupOpen: false,
     isDelConfirmPopupOpen: false,
     selectedCard: false,
+    uxSaveBtn: `Save`,
+    uxCreateBtn: `Create`,
+    uxDeleteBtn: `Yes!`,
     status: null,
     error: null,
   },
   reducers: {
-    openEditProfilePopup(state, action) {
+    openEditProfilePopup(state) {
       state.isEditProfilePopupOpen = true;
       state.isPopupOpen = true;
     },
-    openEditAvatarPopup(state, action) {
+    openEditAvatarPopup(state) {
       state.isEditAvatarPopupOpen = true;
       state.isPopupOpen = true;
     },
@@ -27,7 +30,7 @@ const appSlice = createSlice({
       state.isZoomImagePopupOpen = true;
       state.isPopupOpen = true;
     },
-    openAddPlacePopup(state, action) {
+    openAddPlacePopup(state) {
       state.isAddPlacePopupOpen = true;
       state.isPopupOpen = true;
     },
@@ -36,16 +39,30 @@ const appSlice = createSlice({
       state.isDelConfirmPopupOpen = true;
       state.isPopupOpen = true;
     },
-    resetSelectedCard(state, action){
+    resetSelectedCard(state) {
       state.selectedCard = false;
     },
-    closeAllPopups(state, action) {
+    closeAllPopups(state) {
       state.isEditProfilePopupOpen = false;
       state.isEditAvatarPopupOpen = false;
       state.isZoomImagePopupOpen = false;
       state.isAddPlacePopupOpen = false;
       state.isDelConfirmPopupOpen = false;
       state.isPopupOpen = false;
+    },
+    setUxSaveBtn(state) {
+      state.uxSaveBtn = `Saving...`;
+    },
+    setUxCreateBtn(state) {
+      state.uxCreateBtn = `Creating...`;
+    },
+    setUxDeleteBtn(state) {
+      state.uxDeleteBtn = `Deleting...`;
+    },
+    resetUxButtons(state) {
+      state.uxSaveBtn = `Save`;
+      state.uxCreateBtn = `Create`;
+      state.uxDelBtn = `Yes!`;
     },
   },
 });
@@ -56,8 +73,12 @@ export const {
   openZoomImagePopup,
   openAddPlacePopup,
   openDelConfirmPopup,
-  resetSelectedCard,
+  setUxSaveBtn,
+  setUxCreateBtn,
+  setUxDeleteBtn,
   closeAllPopups,
+  resetSelectedCard,
+  resetUxButtons,
 } = appSlice.actions;
 
 export default appSlice.reducer;

@@ -4,6 +4,5 @@
   color: #fff;
   background-color: rgba(34, 37, 41, 1);
   /* плавное изменение внутренних отступов после ширины окна 768 px */
-  padding-top: max(28px, min(28px + calc((100vw - 320px) / 26.35), 45px));
-  padding-bottom: max(36px, min(36px + calc((100vw - 320px) / 18.7), 60px));
+  padding: 0;
 }

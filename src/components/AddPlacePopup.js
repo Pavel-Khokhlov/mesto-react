@@ -6,25 +6,27 @@ import Input from "./Input/Input.jsx";
 
 import { DELAY } from "../utils/config.js";
 import { newCard } from "../store/dataSlice.js";
-import { closeAllPopups } from "../store/appSlice.js";
+import { closeAllPopups, resetUxButtons, setUxCreateBtn } from "../store/appSlice.js";
 
-const AddPlacePopup = ({ button }) => {
+const AddPlacePopup = () => {
   const dispatch = useDispatch();
   const { values, errors, isValid, handleChange, resetForm } =
     useFormWithValidation();
-  const { isAddPlacePopupOpen } = useSelector((state) => state.app);
+  const { isAddPlacePopupOpen, uxCreateBtn } = useSelector((state) => state.app);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(setUxCreateBtn());
     dispatch(newCard(values));
-    setTimeout(() => {
-      handleClose();
-    }, DELAY);
+    handleClose();
   };
 
   const handleClose = () => {
     dispatch(closeAllPopups());
-    resetForm();
+    setTimeout(() => {
+      resetForm();
+      dispatch(resetUxButtons());
+    }, DELAY);
   };
 
   return (
@@ -32,7 +34,7 @@ const AddPlacePopup = ({ button }) => {
       isOpen={isAddPlacePopupOpen}
       onClose={handleClose}
       title="New place"
-      button={button}
+      button={uxCreateBtn}
       onSubmit={handleSubmit}
       onValid={isValid}
     >

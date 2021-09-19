@@ -1,23 +1,28 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { closeAllPopups } from "../store/appSlice";
+import { closeAllPopups, resetUxButtons, setUxDeleteBtn } from "../store/appSlice";
 import { deleteCard } from "../store/dataSlice";
+import { DELAY } from "../utils/config";
 import PopupWithForm from "./PopupWithForm";
 
-const ConfirmDeletePopup = ({ button }) => {
+const ConfirmDeletePopup = () => {
   const dispatch = useDispatch();
-  const { isDelConfirmPopupOpen, selectedCard } = useSelector(
+  const { isDelConfirmPopupOpen, selectedCard, uxDeleteBtn } = useSelector(
     (state) => state.app
   );
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(setUxDeleteBtn());
     dispatch(deleteCard(selectedCard._id))
-    dispatch(closeAllPopups());
+    handleClose();
   };
 
   const handleClose = () => {
     dispatch(closeAllPopups());
+    setTimeout(() => {
+      dispatch(resetUxButtons());
+    }, DELAY);
   }
 
   return (
@@ -26,7 +31,7 @@ const ConfirmDeletePopup = ({ button }) => {
       onClose={handleClose}
       name="del-place"
       title="Are you shure?"
-      button={button}
+      button={uxDeleteBtn}
       onSubmit={handleSubmit}
       onValid={true}
     />

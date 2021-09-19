@@ -6,13 +6,13 @@ import PopupWithForm from "./PopupWithForm";
 import Input from "./Input/Input.jsx";
 import { DELAY } from "../utils/config.js";
 import { patchProfile } from "../store/userSlice.js";
-import { closeAllPopups } from "../store/appSlice.js";
+import { closeAllPopups, resetUxButtons, setUxSaveBtn } from "../store/appSlice.js";
 
-const EditProfilePopup = ({ button }) => {
+const EditProfilePopup = () => {
   const dispatch = useDispatch();
   const { values, errors, isValid, handleChange, resetFormCurrentUser } =
     useFormWithValidation();
-  const { isEditProfilePopupOpen } = useSelector((state) => state.app);
+  const { isEditProfilePopupOpen, uxSaveBtn } = useSelector((state) => state.app);
 
   useEffect(() => {
     resetFormCurrentUser();
@@ -20,6 +20,7 @@ const EditProfilePopup = ({ button }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(setUxSaveBtn())
     dispatch(patchProfile(values));
     setTimeout(() => {
       handleClose();
@@ -28,7 +29,10 @@ const EditProfilePopup = ({ button }) => {
 
   const handleClose = () => {
     dispatch(closeAllPopups());
-    resetFormCurrentUser();
+    setTimeout(() => {
+      resetFormCurrentUser();
+      dispatch(resetUxButtons());
+    }, DELAY);
   };
 
   return (
@@ -36,7 +40,7 @@ const EditProfilePopup = ({ button }) => {
       isOpen={isEditProfilePopupOpen}
       onClose={handleClose}
       title="Edit profile"
-      button={button}
+      button={uxSaveBtn}
       onSubmit={handleSubmit}
       onValid={isValid}
     >
