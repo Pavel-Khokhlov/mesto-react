@@ -1,0 +1,8 @@
+@import url(./__name/title__name.css);
+@import url(./__card/title__card.css);
+@import url(./__popup/title__popup.css);
+@import url(./__captipn/title__caption.css);
+
+.title {
+  padding: 0;
+}

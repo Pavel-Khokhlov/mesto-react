@@ -1,6 +1,7 @@
 @import url(__label/input__label.css);
 @import url(__error/input__error.css);
 @import url(__field/input__field.css);
+@import url(__line/input__line.css);
 
 .input {
   position: relative;
@@ -9,4 +10,9 @@
 .input:hover .input__label {
   top: -15px;
   font-size: min(12px, 3vw);
+}
+
+.input:hover .input__line::before {
+  left: 0%;
+  width: 100%;
 }

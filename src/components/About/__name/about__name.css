@@ -1,0 +1,6 @@
+.about__name {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 17px;
+}

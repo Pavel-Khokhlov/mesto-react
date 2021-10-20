@@ -1,8 +1,5 @@
 #root {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-style: normal;
-  color: #fff;
   background-color: rgba(34, 37, 41, 1);
-  /* плавное изменение внутренних отступов после ширины окна 768 px */
-  padding: 0;
 }

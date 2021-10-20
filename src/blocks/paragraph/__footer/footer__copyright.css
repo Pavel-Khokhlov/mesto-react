@@ -1,0 +1,4 @@
+.paragraph__footer {
+  font-size: min(18px, 4.375vw);
+  line-height: 1.22;
+}

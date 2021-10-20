@@ -1,0 +1,9 @@
+.card__info {
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 31px;
+  box-sizing: border-box;
+}

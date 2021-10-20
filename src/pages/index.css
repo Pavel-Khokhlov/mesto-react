@@ -2,19 +2,12 @@
 @import url(../vendor/fonts/fonts.css);
 @import url(../blocks/root/root.css);
 @import url(../blocks/paragraph/paragraph.css);
-@import url(../blocks/button/button.css);
-@import url(../blocks/profile/profile.css);
-@import url(../blocks/places/places.css);
-@import url(../blocks/place/place.css);
-@import url(../blocks/popup/popup.css);
-@import url(../blocks/popup-zoom/popup-zoom.css);
+@import url(../blocks/title/title.css);
+@import url(../blocks/text/text.css);
 
 @import url(../blocks/root/_scroll-disabled/root_scroll-disabled.css);
-@import url(../blocks/popup/_opened/popup_opened.css);
-@import url(../blocks/place/__del-btn/_disable/place__del-btn_disable.css);
-@import url(../blocks/paragraph/_red/paragraph_red.css);
 
-body {
+.root {
   display: flex;
   flex-direction: column;
   margin: 0;

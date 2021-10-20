@@ -1,0 +1,9 @@
+@import url(./_active/button__like_active.css);
+@import url(./_inactive/button__like_inactive.css);
+
+.button__like {
+  width: 20.76px;
+  height: 18.13px;
+  border: none;
+  background-size: cover;
+}

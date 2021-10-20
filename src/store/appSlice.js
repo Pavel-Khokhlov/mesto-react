@@ -1,68 +1,77 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  isPopupOpen: false,
+  isEditProfilePopupOpen: false,
+  isEditAvatarPopupOpen: false,
+  isAddPlacePopupOpen: false,
+  isZoomPopupOpen: false,
+  isDelConfirmPopupOpen: false,
+  selectedCard: [],
+  uxBtnTitle: null,
+};
+
 const appSlice = createSlice({
   name: "app",
-  initialState: {
-    isPopupOpen: false,
-    isEditProfilePopupOpen: false,
-    isEditAvatarPopupOpen: false,
-    isAddPlacePopupOpen: false,
-    isZoomImagePopupOpen: false,
-    isDelConfirmPopupOpen: false,
-    selectedCard: false,
-    uxSaveBtn: `Save`,
-    uxCreateBtn: `Create`,
-    uxDeleteBtn: `Yes!`,
-    status: null,
-    error: null,
-  },
+  initialState,
   reducers: {
     openEditProfilePopup(state) {
-      state.isEditProfilePopupOpen = true;
-      state.isPopupOpen = true;
+      return {
+        ...state,
+        uxBtnTitle: "Save",
+        isPopupOpen: true,
+        isEditProfilePopupOpen: true,
+      };
     },
     openEditAvatarPopup(state) {
-      state.isEditAvatarPopupOpen = true;
-      state.isPopupOpen = true;
+      return {
+        ...state,
+        uxBtnTitle: "Save",
+        isEditAvatarPopupOpen: true,
+        isPopupOpen: true,
+      };
     },
     openZoomImagePopup(state, action) {
-      state.selectedCard = action.payload;
-      state.isZoomImagePopupOpen = true;
-      state.isPopupOpen = true;
+      return {
+        ...state,
+        selectedCard: action.payload,
+        isZoomPopupOpen: true,
+        isPopupOpen: true,
+      };
     },
     openAddPlacePopup(state) {
-      state.isAddPlacePopupOpen = true;
-      state.isPopupOpen = true;
+      return {
+        ...state,
+        uxBtnTitle: "Create",
+        isAddPlacePopupOpen: true,
+        isPopupOpen: true,
+      };
     },
     openDelConfirmPopup(state, action) {
-      state.selectedCard = action.payload;
-      state.isDelConfirmPopupOpen = true;
-      state.isPopupOpen = true;
-    },
-    resetSelectedCard(state) {
-      state.selectedCard = false;
+      return {
+        ...state,
+        uxBtnTitle: "Yes",
+        selectedCard: action.payload,
+        isDelConfirmPopupOpen: true,
+        isPopupOpen: true,
+      };
     },
     closeAllPopups(state) {
-      state.isEditProfilePopupOpen = false;
-      state.isEditAvatarPopupOpen = false;
-      state.isZoomImagePopupOpen = false;
-      state.isAddPlacePopupOpen = false;
-      state.isDelConfirmPopupOpen = false;
-      state.isPopupOpen = false;
+      return {
+        ...state,
+        isPopupOpen: false,
+        isEditProfilePopupOpen: false,
+        isEditAvatarPopupOpen: false,
+        isAddPlacePopupOpen: false,
+        isZoomPopupOpen: false,
+        isDelConfirmPopupOpen: false,
+      };
     },
-    setUxSaveBtn(state) {
-      state.uxSaveBtn = `Saving...`;
-    },
-    setUxCreateBtn(state) {
-      state.uxCreateBtn = `Creating...`;
-    },
-    setUxDeleteBtn(state) {
-      state.uxDeleteBtn = `Deleting...`;
-    },
-    resetUxButtons(state) {
-      state.uxSaveBtn = `Save`;
-      state.uxCreateBtn = `Create`;
-      state.uxDelBtn = `Yes!`;
+    setUxBtnTitle(state, action) {
+      return {
+        ...state,
+        uxBtnTitle: action.payload,
+      };
     },
   },
 });
@@ -73,12 +82,8 @@ export const {
   openZoomImagePopup,
   openAddPlacePopup,
   openDelConfirmPopup,
-  setUxSaveBtn,
-  setUxCreateBtn,
-  setUxDeleteBtn,
+  setUxBtnTitle,
   closeAllPopups,
-  resetSelectedCard,
-  resetUxButtons,
 } = appSlice.actions;
 
 export default appSlice.reducer;

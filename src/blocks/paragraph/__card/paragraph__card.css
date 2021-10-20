@@ -1,0 +1,5 @@
+.paragraph__card {
+  font-size: min(13px, 3.125vw);
+  font-weight: 400;
+  line-height: 1.23;
+}

@@ -1,0 +1,18 @@
+@import url(./__container/popup__container.css);
+@import url(./__image/popup__image.css);
+@import url(./_active/popup_active.css);
+@import url(./_inactive/popup_inactive.css);
+@import url(./__container/_active/popup__container_active.css);
+
+.popup {
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 5;
+  transition: 0.5s ease-in-out;
+  display: grid;
+  place-items: center;
+}

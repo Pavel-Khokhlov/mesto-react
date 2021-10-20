@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { BASE_API } from "../utils/config";
 
-export const fetchUserInfo = createAsyncThunk(
-  "users/fetchUserInfo",
+export const getUserInfo = createAsyncThunk(
+  "users/getUserInfo",
   async function (_, { rejectWithValue }) {
     try {
       const response = await fetch(`${BASE_API}/users/me`, {
@@ -16,7 +16,6 @@ export const fetchUserInfo = createAsyncThunk(
         throw new Error("SERVER ERROR! Cant get user information");
       }
       const user = await response.json();
-      console.log(user);
       return user;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -24,8 +23,8 @@ export const fetchUserInfo = createAsyncThunk(
   }
 );
 
-export const patchProfile = createAsyncThunk(
-  "users/patchProfile",
+export const editProfile = createAsyncThunk(
+  "users/editProfile",
   async function ({ name, about }, { rejectWithValue }) {
     try {
       const response = await fetch(`${BASE_API}/users/me`, {
@@ -47,8 +46,8 @@ export const patchProfile = createAsyncThunk(
   }
 );
 
-export const patchAvatar = createAsyncThunk(
-  "users/patchProfile",
+export const editAvatar = createAsyncThunk(
+  "users/editAvatar",
   async function (avatar, { rejectWithValue }) {
     try {
       const response = await fetch(`${BASE_API}/users/me/avatar`, {
@@ -70,6 +69,16 @@ export const patchAvatar = createAsyncThunk(
   }
 );
 
+const setLoading = (state, action) => {
+  state.status = "loading";
+  state.error = null;
+};
+
+const setCurrentUser = (state, action) => {
+  state.status = "resolved";
+  state.currentUser = action.payload;
+};
+
 const setError = (state, action) => {
   state.status = "rejected";
   state.error = action.payload;
@@ -78,35 +87,22 @@ const setError = (state, action) => {
 const userSlice = createSlice({
   name: "users",
   initialState: {
-    currentUser: [],
-    users: [],
+    currentUser: {},
     status: null,
     error: null,
   },
   reducers: {},
   extraReducers: {
-    [fetchUserInfo.pending]: (state) => {
-      state.status = "loading";
-      state.error = null;
-    },
-    [fetchUserInfo.fulfilled]: (state, action) => {
-      state.status = "resolved";
-      state.currentUser = action.payload;
-    },
-    [patchProfile.fulfilled]: (state, action) => {
-      state.status = "resolved";
-      state.currentUser = action.payload;
-    },
-    [patchAvatar.fulfilled]: (state, action) => {
-      state.status = "resolved";
-      state.currentUser = action.payload;
-    },
-    [fetchUserInfo.rejected]: setError,
-    [patchProfile.rejected]: setError,
-    [patchAvatar.rejected]: setError,
+    [getUserInfo.pending]: setLoading,
+    [editProfile.pending]: setLoading,
+    [editAvatar.pending]: setLoading,
+    [getUserInfo.fulfilled]: setCurrentUser,
+    [editProfile.fulfilled]: setCurrentUser,
+    [editAvatar.fulfilled]: setCurrentUser,
+    [getUserInfo.rejected]: setError,
+    [editProfile.rejected]: setError,
+    [editAvatar.rejected]: setError,
   },
 });
-
-export const {} = userSlice.actions;
 
 export default userSlice.reducer;

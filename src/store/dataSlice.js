@@ -158,6 +158,4 @@ const dataSlice = createSlice({
   },
 });
 
-export const {} = dataSlice.actions;
-
 export default dataSlice.reducer;

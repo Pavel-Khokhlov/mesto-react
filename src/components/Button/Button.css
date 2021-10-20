@@ -1,0 +1,32 @@
+@import url(./__close-popup/button__close-popup.css);
+@import url(./__edit-profile/button__edit-plofile.css);
+@import url(./__edit-avatar/button__edit-avatar.css);
+@import url(./__add-place/button__add-place.css);
+@import url(./__submit/button__submit.css);
+@import url(./__image/button__image.css);
+@import url(./__delete/button__delete.css);
+@import url(./__like/button__like.css);
+
+@import url(./_background/button_background.css);
+@import url(./__delete/_inactive/button__delete_inactive.css);
+
+.button {
+  /* сброс стилей */
+  cursor: pointer;
+  /* настройки кнопок */
+  opacity: 1;
+  transition: 0.5s;
+  box-sizing: border-box;
+}
+
+.button:hover {
+  opacity: 0.5;
+}
+
+.button:active {
+  outline-style: none;
+}
+
+.button:focus {
+  outline-style: none;
+}

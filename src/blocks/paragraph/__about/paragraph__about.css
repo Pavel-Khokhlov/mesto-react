@@ -1,0 +1,11 @@
+.paragraph__about {
+  font-weight: normal;
+  font-size: min(18px, 4.375vw);
+  line-height: 1.22;
+}
+
+@media only screen and (max-width: 767px) {
+  .paragraph__about {
+    text-align: center;
+  }
+}

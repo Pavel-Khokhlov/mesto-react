@@ -1,0 +1,12 @@
+@import url(./_active/button__submit_active.css);
+@import url(./_inactive/button__submit_inactive.css);
+
+.button__submit {
+  border-radius: 2px;
+  width: 100%;
+  height: 50.15px;
+  padding: 0;
+  font-size: 18px;
+  line-height: 22px;
+  transition: 0.8s;
+}

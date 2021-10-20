@@ -1,0 +1,7 @@
+.title__name {
+  font-weight: 500;
+  font-size: min(42px, 8.4375vw);
+  line-height: 1.33;
+  margin: 0;
+  width: max-content;
+}

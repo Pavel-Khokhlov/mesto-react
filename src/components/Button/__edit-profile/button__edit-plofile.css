@@ -1,0 +1,9 @@
+.button__edit-profile {
+  margin: 0;
+  padding: 0;
+  width: min(30px, 5.625vw);
+  height: min(30px, 5.625vw);
+  border: 1px solid #fff;
+  background-image: url(../../../images/pen.svg);
+  background-size: 60%;
+}
