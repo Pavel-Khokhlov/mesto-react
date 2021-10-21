@@ -5,7 +5,7 @@ import { DELAY } from "../../utils/config";
 import Button from "../Button/Button";
 import Popup from "./Popup";
 
-const PopupWithForm = ({ isOpen, title, children, onSubmit, onValid, resetForm }) => {
+const PopupWithForm = ({ isOpen, title, children, onSubmit, onValid, formReset }) => {
   const dispatch = useDispatch();
   const { uxBtnTitle } = useSelector(
     (state) => state.app
@@ -20,12 +20,12 @@ const PopupWithForm = ({ isOpen, title, children, onSubmit, onValid, resetForm }
   const handleClose = () => {
     dispatch(closeAllPopups());
     setTimeout(() => {
-      resetForm();
+      formReset();
     }, DELAY);
   };
 
   return (
-    <Popup isOpen={isOpen} resetForm={resetForm}>
+    <Popup isOpen={isOpen} resetForm={formReset}>
       <form
         className={containerClassName}
         onClick={(e) => e.stopPropagation()}

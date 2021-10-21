@@ -6,6 +6,7 @@
   flex-direction: column;
   border-radius: 10px;
   gap: min(20px, 4vw);
+  border-radius: 10px;
 }
 
 @media only screen and (max-width: 768px) {

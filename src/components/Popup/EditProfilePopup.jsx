@@ -43,7 +43,7 @@ const EditProfilePopup = () => {
     <PopupWithForm
       isOpen={isEditProfilePopupOpen}
       title="Edit profile"
-      resetForm={resetFormCurrentUser}
+      formReset={resetFormCurrentUser}
       onSubmit={handleSubmit}
       onValid={isValid}
     >

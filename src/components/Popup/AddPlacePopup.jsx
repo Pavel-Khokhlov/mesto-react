@@ -42,6 +42,7 @@ const AddPlacePopup = () => {
     <PopupWithForm
       isOpen={isAddPlacePopupOpen}
       title="New place"
+      formReset={resetForm}
       onSubmit={handleSubmit}
       onValid={isValid}
     >

@@ -42,7 +42,7 @@ const EditAvatarPopup = () => {
     <PopupWithForm
       isOpen={isEditAvatarPopupOpen}
       title="Update avatar"
-      resetForm={resetForm}
+      formReset={resetForm}
       onSubmit={handleSubmit}
       onValid={isValid}
     >

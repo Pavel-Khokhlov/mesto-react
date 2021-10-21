@@ -4,11 +4,9 @@
 .popup__container {
   position: relative;
   margin: 0;
-  width: min(70vw, 430px);
   display: flex;
   flex-direction: column;
   gap: min(20px, 4vw);
-  border-radius: 10px;
   transition: all 0.8s ease-in-out;
   opacity: 0;
   transform: perspective(300px) translate(0px, -300%) rotateX(45deg);
