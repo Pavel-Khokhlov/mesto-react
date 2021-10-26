@@ -1,8 +1,7 @@
 @import url(./__profile/main__profile.css);
 
 .main {
-  min-height: 100%;
   width: min(882px, 100vw);
   margin: 0 auto;
-  flex-grow: 1;
+  flex: 1 1 auto;
 }

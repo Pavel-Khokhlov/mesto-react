@@ -1,4 +1,4 @@
 .popup__container_zoom {
-  width: min(750px, 80vw);
+  width: fit-content;
   padding: 0;
 }

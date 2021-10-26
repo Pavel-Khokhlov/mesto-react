@@ -92,7 +92,7 @@ export const dislikeCard = createAsyncThunk(
 
 export const deleteCard = createAsyncThunk(
   "data/deleteCard",
-  async function (cardId, { rejectWithValue, dispatch }) {
+  async function (cardId, { rejectWithValue }) {
     try {
       const response = await fetch(`${BASE_API}/cards/${cardId}`, {
         method: "DELETE",

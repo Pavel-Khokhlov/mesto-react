@@ -7,10 +7,14 @@
 
 @import url(../blocks/root/_scroll-disabled/root_scroll-disabled.css);
 
+body {
+  height: 100vh;
+}
+
 .root {
   display: flex;
   flex-direction: column;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  min-height: 100%;
 }
