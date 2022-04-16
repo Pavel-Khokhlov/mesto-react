@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openEditAvatarPopup } from "../../store/appSlice";
 import Button from "../Button/Button";
@@ -13,19 +13,18 @@ const Avatar = () => {
   };
 
   return (
-    <div className="avatar">
-          <img
-            src={currentUser.avatar}
-            alt={currentUser.name}
-            className="avatar__image"
-          />
-          <Button
-            type="button"
-            className="button__edit-avatar"
-            aria-label="кнопка редактировать аватар"
-            onClick={handleEditAvatar}
-          />
-        </div>
+    <Button
+      type="button"
+      className="button__edit-avatar"
+      aria-label="кнопка редактировать аватар"
+      onClick={handleEditAvatar}
+    >
+      <img
+        src={currentUser.avatar}
+        alt={currentUser.name}
+        className="avatar__image"
+      />
+    </Button>
   );
 };
 

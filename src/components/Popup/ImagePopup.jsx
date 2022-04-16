@@ -41,7 +41,7 @@ const ImagePopup = () => {
           alt={selectedCard.name}
           className="popup__image"
         />
-        <figcaption className="title title__caption text__color_black">
+        <figcaption className="title title__caption text__color_white">
           {selectedCard.name}
         </figcaption>
       </figure>
