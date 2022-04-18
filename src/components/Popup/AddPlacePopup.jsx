@@ -1,40 +1,47 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useFormWithValidation } from "../Hooks/useForm.jsx";
 import PopupWithForm from "./PopupWithForm";
 import Input from "../Input/Input.jsx";
 
 import { DELAY } from "../../utils/config.js";
 import { newCard } from "../../store/dataSlice.js";
 import { closeAllPopups, setUxBtnTitle } from "../../store/appSlice.js";
+import {
+  disableButton,
+  handleValueChange,
+  resetForm,
+  validateForm,
+  validateInput,
+} from "../../store/formSlice.js";
 
 const AddPlacePopup = () => {
   const dispatch = useDispatch();
-  const { values, errors, isValid, handleChange, resetForm } =
-    useFormWithValidation();
   const { isAddPlacePopupOpen } = useSelector((state) => state.app);
-  const { status } = useSelector((state) => state.data);
+  const { values, errors, isFormValid } = useSelector((state) => state.form);
+  const { statusData } = useSelector((state) => state.data);
 
   useEffect(() => {
     setTimeout(() => {
-      resetForm();
+      dispatch(resetForm());
     }, DELAY);
   }, [isAddPlacePopupOpen]);
 
   useEffect(() => {
-    if (status !== "resolved") {
-      return;
-    } else {
-      dispatch(closeAllPopups());
-      setTimeout(() => {
-        dispatch(setUxBtnTitle(null));
-      }, DELAY);
-    }
-  }, [status]);
+    if (statusData !== "resolved") return;
+    dispatch(closeAllPopups());
+  }, [statusData]);
+
+  const handleInputChange = (e) => {
+    const target = e.target;
+    dispatch(handleValueChange({ name: target.name, value: target.value }));
+    dispatch(validateInput(target.name));
+    dispatch(validateForm(["name", "link"]));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(setUxBtnTitle(`Creating...`));
+    dispatch(disableButton());
     dispatch(newCard(values));
   };
 
@@ -42,25 +49,24 @@ const AddPlacePopup = () => {
     <PopupWithForm
       isOpen={isAddPlacePopupOpen}
       title="New place"
-      formReset={resetForm}
       onSubmit={handleSubmit}
-      onValid={isValid}
+      onValid={isFormValid}
     >
       <Input
         type="text"
         inputName="name"
         labelName="Place title"
-        value={values.name || ""}
-        onChange={handleChange}
-        errors={errors.name}
+        onChange={handleInputChange}
+        value={values.name}
+        error={errors.name}
       />
       <Input
         type="url"
         inputName="link"
         labelName="Place link"
-        value={values.link || ""}
-        onChange={handleChange}
-        errors={errors.link}
+        onChange={handleInputChange}
+        value={values.link}
+        error={errors.link}
       />
     </PopupWithForm>
   );

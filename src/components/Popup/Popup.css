@@ -1,8 +1,5 @@
 @import url(./__container/popup__container.css);
 @import url(./__image/popup__image.css);
-@import url(./_active/popup_active.css);
-@import url(./_inactive/popup_inactive.css);
-@import url(./__container/_active/popup__container_active.css);
 
 .popup {
   background-color: rgba(0, 0, 0, 0.8);
@@ -15,4 +12,13 @@
   transition: 0.5s ease-in-out;
   display: grid;
   place-items: center;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.popup._active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
 }

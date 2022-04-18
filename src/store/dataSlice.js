@@ -25,7 +25,7 @@ export const fetchCards = createAsyncThunk(
 
 export const newCard = createAsyncThunk(
   "data/newCard",
-  async function ({ name, link }, { rejectWithValue, dispatch }) {
+  async function ({ name, link }, { rejectWithValue }) {
     try {
       const response = await fetch(`${BASE_API}/cards`, {
         method: "POST",
@@ -111,50 +111,55 @@ export const deleteCard = createAsyncThunk(
   }
 );
 
+const setLoading = (state) => {
+  state.statusData = "loading";
+  state.error = null;
+};
+
 const handleLike = (state, action) => {
-  state.status = "resolved";
   state.cards = state.cards.map((c) =>
     c._id === action.payload._id ? action.payload : c
   );
+  state.statusData = "resolved";
 };
 
 const setError = (state, action) => {
-  state.status = "rejected";
   state.error = action.payload;
+  state.statusData = "rejected";
 };
 
 const dataSlice = createSlice({
   name: "data",
   initialState: {
     cards: [],
-    status: null,
+    statusData: null,
     error: null,
   },
   reducers: {},
   extraReducers: {
-    [fetchCards.pending]: (state) => {
-      state.status = "loading";
-      state.error = null;
-    },
+    [fetchCards.pending]: setLoading,
     [fetchCards.fulfilled]: (state, action) => {
-      state.status = "resolved";
+      state.statusData = "resolved";
       state.cards = action.payload;
     },
+    [fetchCards.rejected]: setError,
+    [newCard.pending]: setLoading,
     [newCard.fulfilled]: (state, action) => {
-      state.status = "resolved";
+      state.statusData = "resolved";
       state.cards = [action.payload, ...state.cards];
     },
+    [newCard.rejected]: setError,
+    [deleteCard.pending]: setLoading,
     [deleteCard.fulfilled]: (state, action) => {
-      state.status = "resolved";
+      state.statusData = "resolved";
       state.cards = state.cards.filter((card) => card._id !== action.payload);
     },
+    [deleteCard.rejected]: setError,
     [likeCard.fulfilled]: handleLike,
     [dislikeCard.fulfilled]: handleLike,
-    [fetchCards.rejected]: setError,
-    [newCard.rejected]: setError,
     [likeCard.rejected]: setError,
     [dislikeCard.rejected]: setError,
-    [deleteCard.rejected]: setError,
+    
   },
 });
 

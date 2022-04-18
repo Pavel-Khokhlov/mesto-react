@@ -9,7 +9,7 @@ REDUX-TOOLKIT has been inmplemented in the project.
 appSlice.js - for common function
 userSlice - for API concernig user requests 
 dataSlice - for API conserning card requests
-2. Created personal HOOK for validate forms
+formSlice - for validate inpunts and forms
 3. Created LOADER while content is loading 
 ### Review
 CREATE REACT APPLICATOPN (CRA)

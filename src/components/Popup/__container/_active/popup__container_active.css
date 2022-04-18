@@ -1,4 +1,0 @@
-.popup__container_active {
-  opacity: 1;
-  transform: perspective(300px) translate(0px, 0px) rotateX(0deg);
-}

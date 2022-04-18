@@ -8,15 +8,15 @@ const Popup = ({ isOpen, children }) => {
   const dispatch = useDispatch();
 
   const popupClassName = `popup ${
-    isOpen ? "popup_active" : "popup_inactive"
+    isOpen ? "_active" : ""
   }`;
 
-  const handleClose = () => {
+  const handleCloseOverlay = () => {
     dispatch(closeAllPopups());
   };
 
   return (
-    <section className={popupClassName} onClick={handleClose}>
+    <section className={popupClassName} onClick={handleCloseOverlay}>
       {children}
     </section>
   );

@@ -7,6 +7,8 @@ export const HEADERS = `
     authorization: "87b27e82-ce10-439c-bbe6-2acce8f72cdc",
   }`
 
+export const REG_NAME = /^[a-zA-Zа-яА-ЯЁё\s-_]+$/i;
+
 export const REG_EMAIL = /^[^@]+@[^@.]+\.[^@]+$/;
 
 export const REG_PASSWORD =

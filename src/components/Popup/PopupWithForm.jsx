@@ -1,31 +1,38 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeAllPopups } from "../../store/appSlice";
+import { resetForm } from "../../store/formSlice";
 import { DELAY } from "../../utils/config";
 import Button from "../Button/Button";
 import Popup from "./Popup";
 
-const PopupWithForm = ({ isOpen, title, children, onSubmit, onValid, formReset }) => {
+const PopupWithForm = ({
+  isOpen,
+  title,
+  children,
+  onSubmit,
+  onValid,
+}) => {
   const dispatch = useDispatch();
-  const { uxBtnTitle } = useSelector(
-    (state) => state.app
-  );
+  const { uxBtnTitle } = useSelector((state) => state.app);
 
-  const containerClassName = `popup__container popup__container_form ${isOpen ? "popup__container_active" : ""}`;
+  const containerClassName = `popup__container popup__container_form ${
+    isOpen ? "_active" : ""
+  }`;
 
   const buttonSubmitClassName = `button button__submit ${
-    onValid ? "button__submit_active" : "button__submit_inactive"
-  }`
+    onValid ? "_active" : ""
+  }`;
 
   const handleClose = () => {
     dispatch(closeAllPopups());
     setTimeout(() => {
-      formReset();
+      dispatch(resetForm());
     }, DELAY);
   };
 
   return (
-    <Popup isOpen={isOpen} resetForm={formReset}>
+    <Popup isOpen={isOpen}>
       <form
         className={containerClassName}
         onClick={(e) => e.stopPropagation()}
@@ -43,7 +50,7 @@ const PopupWithForm = ({ isOpen, title, children, onSubmit, onValid, formReset }
           type="submit"
           className={buttonSubmitClassName}
           aria-label="Сохранить новый профиль"
-          disabled={!onValid}
+          disabled={onValid}
         >
           {uxBtnTitle}
         </Button>

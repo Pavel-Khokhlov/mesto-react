@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isPopupOpen: false,
   isEditProfilePopupOpen: false,
   isEditAvatarPopupOpen: false,
   isAddPlacePopupOpen: false,
@@ -19,7 +18,6 @@ const appSlice = createSlice({
       return {
         ...state,
         uxBtnTitle: "Save",
-        isPopupOpen: true,
         isEditProfilePopupOpen: true,
       };
     },
@@ -28,7 +26,6 @@ const appSlice = createSlice({
         ...state,
         uxBtnTitle: "Save",
         isEditAvatarPopupOpen: true,
-        isPopupOpen: true,
       };
     },
     openZoomImagePopup(state, action) {
@@ -36,7 +33,6 @@ const appSlice = createSlice({
         ...state,
         selectedCard: action.payload,
         isZoomPopupOpen: true,
-        isPopupOpen: true,
       };
     },
     openAddPlacePopup(state) {
@@ -44,7 +40,6 @@ const appSlice = createSlice({
         ...state,
         uxBtnTitle: "Create",
         isAddPlacePopupOpen: true,
-        isPopupOpen: true,
       };
     },
     openDelConfirmPopup(state, action) {
@@ -53,19 +48,10 @@ const appSlice = createSlice({
         uxBtnTitle: "Yes",
         selectedCard: action.payload,
         isDelConfirmPopupOpen: true,
-        isPopupOpen: true,
       };
     },
-    closeAllPopups(state) {
-      return {
-        ...state,
-        isPopupOpen: false,
-        isEditProfilePopupOpen: false,
-        isEditAvatarPopupOpen: false,
-        isAddPlacePopupOpen: false,
-        isZoomPopupOpen: false,
-        isDelConfirmPopupOpen: false,
-      };
+    closeAllPopups() {
+      return initialState;
     },
     setUxBtnTitle(state, action) {
       return {

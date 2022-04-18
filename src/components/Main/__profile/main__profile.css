@@ -1,7 +1,7 @@
 .main__profile {
   max-width: 920px;
   display: grid;
-  grid-template-columns: 120px auto 150px;
+  grid-template-columns: 120px minmax(300px, 1fr) 150px;
   gap: 30px;
   align-items: center;
   margin-bottom: min(50px, 11vw);

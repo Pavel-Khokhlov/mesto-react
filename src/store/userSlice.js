@@ -69,18 +69,18 @@ export const editAvatar = createAsyncThunk(
   }
 );
 
-const setLoading = (state, action) => {
-  state.status = "loading";
+const setLoading = (state) => {
+  state.statusUser = "loading";
   state.error = null;
 };
 
 const setCurrentUser = (state, action) => {
-  state.status = "resolved";
+  state.statusUser = "resolved";
   state.currentUser = action.payload;
 };
 
 const setError = (state, action) => {
-  state.status = "rejected";
+  state.statusUser = "rejected";
   state.error = action.payload;
 };
 
@@ -88,7 +88,7 @@ const userSlice = createSlice({
   name: "users",
   initialState: {
     currentUser: {},
-    status: null,
+    statusUser: null,
     error: null,
   },
   reducers: {},

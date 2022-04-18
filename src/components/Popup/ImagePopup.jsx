@@ -12,7 +12,7 @@ const ImagePopup = () => {
   );
 
   const containerPopupClassName = `popup__container popup__container_zoom ${
-    isZoomPopupOpen ? "popup__container_active" : ""
+    isZoomPopupOpen ? "_active" : ""
   }`;
 
   useEffect(() => {

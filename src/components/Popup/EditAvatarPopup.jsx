@@ -1,40 +1,41 @@
 import React, { useEffect } from "react";
-import { useFormWithValidation } from "../Hooks/useForm.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import PopupWithForm from "./PopupWithForm";
 import Input from "../Input/Input.jsx";
 import { DELAY } from "../../utils/config.js";
 import { closeAllPopups, setUxBtnTitle } from "../../store/appSlice.js";
 import { editAvatar } from "../../store/userSlice.js";
+import { disableButton, handleValueChange, resetForm, validateForm, validateInput } from "../../store/formSlice.js";
 
 const EditAvatarPopup = () => {
   const dispatch = useDispatch();
-  const { values, errors, isValid, handleChange, resetForm } =
-    useFormWithValidation();
   const { isEditAvatarPopupOpen } = useSelector((state) => state.app);
+  const { values, errors, isFormValid } = useSelector((state) => state.form);
 
-  const { status } = useSelector((state) => state.users);
+  const { statusUser } = useSelector((state) => state.users);
 
   useEffect(() => {
     setTimeout(() => {
-      resetForm();
+      dispatch(resetForm());
     }, DELAY);
   }, [isEditAvatarPopupOpen]);
 
   useEffect(() => {
-    if (status !== "resolved") {
-      return;
-    } else {
-      dispatch(closeAllPopups());
-      setTimeout(() => {
-        dispatch(setUxBtnTitle(null));
-      }, DELAY);
-    }
-  }, [status]);
+    if (statusUser !== "resolved") return;
+    dispatch(closeAllPopups());
+  }, [statusUser]);
+
+  const handleInputChange = (e) => {
+    const target = e.target;
+    dispatch(handleValueChange({ name: target.name, value: target.value }));
+    dispatch(validateInput(target.name));
+    dispatch(validateForm(["link"]));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(setUxBtnTitle("Saving..."));
+    dispatch(disableButton());
     dispatch(editAvatar(values));
   };
 
@@ -42,17 +43,16 @@ const EditAvatarPopup = () => {
     <PopupWithForm
       isOpen={isEditAvatarPopupOpen}
       title="Update avatar"
-      formReset={resetForm}
       onSubmit={handleSubmit}
-      onValid={isValid}
+      onValid={isFormValid}
     >
       <Input
         type="url"
         inputName="link"
         labelName="Avatar's link"
-        value={values.link || ""}
-        onChange={handleChange}
-        errors={errors.link}
+        onChange={handleInputChange}
+        value={values.link}
+        error={errors.link}
       />
     </PopupWithForm>
   );

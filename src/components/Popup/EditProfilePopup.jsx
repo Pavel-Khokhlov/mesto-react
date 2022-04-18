@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useFormWithValidation } from "../Hooks/useForm.jsx";
 import { useSelector, useDispatch } from "react-redux";
 
 import PopupWithForm from "./PopupWithForm";
@@ -7,35 +6,44 @@ import Input from "../Input/Input.jsx";
 import { DELAY } from "../../utils/config.js";
 import { editProfile } from "../../store/userSlice.js";
 import { closeAllPopups, setUxBtnTitle } from "../../store/appSlice.js";
+import {
+  disableButton,
+  handleValueChange,
+  resetFormCurrentUser,
+  validateForm,
+  validateInput,
+} from "../../store/formSlice.js";
 
 const EditProfilePopup = () => {
   const dispatch = useDispatch();
-  const { values, errors, isValid, handleChange, resetFormCurrentUser } =
-    useFormWithValidation();
   const { isEditProfilePopupOpen } = useSelector((state) => state.app);
-  const { status } = useSelector((state) => state.users);
+  const { currentUser, statusUser } = useSelector((state) => state.users);
+  const { values, errors, isFormValid } = useSelector((state) => state.form);
 
   useEffect(() => {
-    if (isEditProfilePopupOpen === true) resetFormCurrentUser();
+    if (isEditProfilePopupOpen === true)
+      dispatch(resetFormCurrentUser(currentUser));
     setTimeout(() => {
-      resetFormCurrentUser();
+      dispatch(resetFormCurrentUser(currentUser));
     }, DELAY);
   }, [isEditProfilePopupOpen]);
 
   useEffect(() => {
-    if (status !== "resolved") {
-      return;
-    } else {
-      dispatch(closeAllPopups());
-      setTimeout(() => {
-        dispatch(setUxBtnTitle(null));
-      }, DELAY);
-    }
-  }, [status]);
+    if (statusUser !== "resolved") return;
+    dispatch(closeAllPopups());
+  }, [statusUser]);
+
+  const handleInputChange = (e) => {
+    const target = e.target;
+    dispatch(handleValueChange({ name: target.name, value: target.value }));
+    dispatch(validateInput(target.name));
+    dispatch(validateForm(["name", "about"]));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(setUxBtnTitle(`Saving...`));
+    dispatch(disableButton());
     dispatch(editProfile(values));
   };
 
@@ -43,25 +51,24 @@ const EditProfilePopup = () => {
     <PopupWithForm
       isOpen={isEditProfilePopupOpen}
       title="Edit profile"
-      formReset={resetFormCurrentUser}
       onSubmit={handleSubmit}
-      onValid={isValid}
+      onValid={isFormValid}
     >
       <Input
         type="text"
         inputName="name"
         labelName="First and Last name"
-        value={values.name || ""}
-        onChange={handleChange}
-        errors={errors.name}
+        onChange={handleInputChange}
+        value={values.name}
+        error={errors.name}
       />
       <Input
         type="text"
         inputName="about"
         labelName="Profession"
-        value={values.about || ""}
-        onChange={handleChange}
-        errors={errors.about}
+        onChange={handleInputChange}
+        value={values.about}
+        error={errors.about}
       />
     </PopupWithForm>
   );

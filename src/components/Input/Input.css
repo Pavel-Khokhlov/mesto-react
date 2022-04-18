@@ -6,13 +6,3 @@
 .input {
   position: relative;
 }
-
-.input:hover .input__label {
-  top: -15px;
-  font-size: min(12px, 3vw);
-}
-
-.input:hover .input__line::before {
-  left: 0%;
-  width: 100%;
-}
