@@ -132,10 +132,24 @@ const dataSlice = createSlice({
   name: "data",
   initialState: {
     cards: [],
+    selectedCard: [],
     statusData: null,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    setSelectedCard (state, action) {
+      return {
+        ...state,
+        selectedCard: action.payload,
+      };
+    },
+    resetSelectedCard (state) {
+      return {
+        ...state,
+        selectedCard: [],
+      };
+    },
+  },
   extraReducers: {
     [fetchCards.pending]: setLoading,
     [fetchCards.fulfilled]: (state, action) => {
@@ -162,5 +176,10 @@ const dataSlice = createSlice({
     
   },
 });
+
+export const {
+  setSelectedCard,
+  resetSelectedCard,
+} = dataSlice.actions;
 
 export default dataSlice.reducer;

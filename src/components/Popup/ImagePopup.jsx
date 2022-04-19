@@ -1,14 +1,19 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { closeAllPopups, resetSelectedCard } from "../../store/appSlice";
+import { closeAllPopups } from "../../store/appSlice";
+import { resetSelectedCard } from "../../store/dataSlice";
 import { DELAY } from "../../utils/config";
 import Button from "../Button/Button";
 import Popup from "./Popup";
 
 const ImagePopup = () => {
   const dispatch = useDispatch();
-  const { isZoomPopupOpen, selectedCard } = useSelector(
+  const { isZoomPopupOpen } = useSelector(
     (state) => state.app
+  );
+
+  const { selectedCard } = useSelector(
+    (state) => state.data
   );
 
   const containerPopupClassName = `popup__container popup__container_zoom ${
@@ -22,6 +27,9 @@ const ImagePopup = () => {
 
   const handleClose = () => {
     dispatch(closeAllPopups());
+    setTimeout(() => {
+      dispatch(resetSelectedCard());
+    }, DELAY);
   };
 
   return (

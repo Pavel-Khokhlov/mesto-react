@@ -5,12 +5,12 @@ This is one of the first Yandex-Praktikum study project
 
 ***BIG UPDATE***
 REDUX-TOOLKIT has been inmplemented in the project.
-1. Create STORE with redusers and slices:
-appSlice.js - for common function
-userSlice - for API concernig user requests 
-dataSlice - for API conserning card requests
-formSlice - for validate inpunts and forms
-3. Created LOADER while content is loading 
+Create STORE with redusers and slices:
+1. a1ppSlice.js - for common function
+2. userSlice - for API concernig user requests 
+3. dataSlice - for API conserning card requests
+4. formSlice - for validate inpunts and forms
+5. Created LOADER while content is loading 
 ### Review
 CREATE REACT APPLICATOPN (CRA)
 This is the Page with profile data and users pictures.

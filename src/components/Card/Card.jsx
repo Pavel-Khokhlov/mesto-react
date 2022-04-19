@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { openZoomImagePopup, openDelConfirmPopup } from "../../store/appSlice";
-import { dislikeCard, likeCard } from "../../store/dataSlice";
+import { dislikeCard, likeCard, setSelectedCard } from "../../store/dataSlice";
 import Button from "../Button/Button";
 
 import "./Card.css";
@@ -29,7 +29,8 @@ const Card = ({ card }) => {
   }`;
 
   const handleCardClick = () => {
-    dispatch(openZoomImagePopup(card));
+    dispatch(setSelectedCard(card));
+    dispatch(openZoomImagePopup());
   };
 
   const handleLikeClick = () => {

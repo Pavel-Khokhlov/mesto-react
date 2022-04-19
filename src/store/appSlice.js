@@ -6,7 +6,6 @@ const initialState = {
   isAddPlacePopupOpen: false,
   isZoomPopupOpen: false,
   isDelConfirmPopupOpen: false,
-  selectedCard: [],
   uxBtnTitle: null,
 };
 
@@ -28,10 +27,9 @@ const appSlice = createSlice({
         isEditAvatarPopupOpen: true,
       };
     },
-    openZoomImagePopup(state, action) {
+    openZoomImagePopup(state) {
       return {
         ...state,
-        selectedCard: action.payload,
         isZoomPopupOpen: true,
       };
     },
